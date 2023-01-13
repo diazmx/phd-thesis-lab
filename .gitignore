@@ -2,6 +2,10 @@
 *.csv
 *.gml
 *.gephi
+*.pdf
+
+# Output files
+output-files/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
