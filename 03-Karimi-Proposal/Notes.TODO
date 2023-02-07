@@ -1,0 +1,23 @@
+Data preprocessing
+    Convert all numerical variables to theri corresponding categorical values.
+    Handle missing values -> New 'UKN' value
+Selection of Learning Algorithm
+    K-modes algorithm
+Parameter tuning
+    Number of cluster -> Silhouette method from [10-20]
+    Cluster initialization
+Policy Rules Extraction
+    Effective attributes and relations are [0.2 - 0.3]
+    Functions to code:
+        Effective (psotive & Negative) attributes -> Atributo valor que forman las reglas.
+        Effective Relations -> 
+Policy Enhancement
+    Rule Pruning
+    Policy Refinement
+
+
+Karimi nunca establece que realiza un proceso de seleccion de recursos 
+más frecuentes no sé de donde salió eso. VALIDAR ESTO
+
+En el dataset de AMZ no se especifica los atributos utilizados. ¿también se 
+utiliza el atributo de recurso?
