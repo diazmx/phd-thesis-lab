@@ -1,0 +1,17 @@
+Trabajar en sustituir el algoritmo de Louvain para generar las reglas.
+Implementar lo que se dijo en la tesis.
+
+Limitantes para poner en el algoritmo
+- NO se generan reglas de un sola tupla atributo-valor (se evita ser permisivo)
+        Experimentar con uno o más de dos. Las diferentes resultados con diferentes variables
+- SET un número de registros cubiertos por la regla candidata. (se evita que se generen reglas restrictivas)
+        Experimentar diferentes niveles de cubierto
+        *PRIORIDAD* Calcular para ver cual es el número más repetido en todas las comunidades.
+
+Algoritmo para la el atributo-valor frecuente de cada dataframe
+
+1. Calcular El valor más frecuente de cada atributo.
+    df_users_in_comm.ATTRS_NAMES.value_counts()
+2. Se selecciona el valor más frecuente. 
+
+* COMPARAR CON APRIORI *
