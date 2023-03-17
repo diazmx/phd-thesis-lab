@@ -12,6 +12,8 @@ Algoritmo para la el atributo-valor frecuente de cada dataframe
 
 1. Calcular El valor más frecuente de cada atributo.
     df_users_in_comm.ATTRS_NAMES.value_counts()
-2. Se selecciona el valor más frecuente. 
+2. Se selecciona el valor más frecuente del paso 1.
+3. Calcular el valor más frecuente de cada atributo menos el seleccionado en 2
+4. Se selecciona el valor más frecuente del paso 3.
 
 * COMPARAR CON APRIORI *
