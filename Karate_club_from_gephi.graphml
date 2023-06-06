@@ -1,0 +1,1113 @@
+<?xml version="1.0" encoding="UTF-8"?><graphml xmlns="http://graphml.graphdrawing.org/xmlns">
+    <key attr.name="label" attr.type="string" for="node" id="label"/>
+    <key attr.name="Edge Label" attr.type="string" for="edge" id="edgelabel"/>
+    <key attr.name="weight" attr.type="double" for="edge" id="weight"/>
+    <key attr.name="r" attr.type="int" for="node" id="r"/>
+    <key attr.name="g" attr.type="int" for="node" id="g"/>
+    <key attr.name="b" attr.type="int" for="node" id="b"/>
+    <key attr.name="x" attr.type="float" for="node" id="x"/>
+    <key attr.name="y" attr.type="float" for="node" id="y"/>
+    <key attr.name="size" attr.type="float" for="node" id="size"/>
+    <key attr.name="club" attr.type="string" for="node" id="d1"/>
+    <key attr.name="Degree" attr.type="int" for="node" id="degree"/>
+    <key attr.name="Modularity Class" attr.type="int" for="node" id="modularity_class"/>
+    <key attr.name="Weighted Degree" attr.type="double" for="node" id="weighted degree"/>
+    <key attr.name="Eccentricity" attr.type="double" for="node" id="eccentricity"/>
+    <key attr.name="Closeness Centrality" attr.type="double" for="node" id="closnesscentrality"/>
+    <key attr.name="Harmonic Closeness Centrality" attr.type="double" for="node" id="harmonicclosnesscentrality"/>
+    <key attr.name="Betweenness Centrality" attr.type="double" for="node" id="betweenesscentrality"/>
+    <key attr.name="Authority" attr.type="float" for="node" id="authority"/>
+    <key attr.name="Hub" attr.type="float" for="node" id="hub"/>
+    <key attr.name="PageRank" attr.type="double" for="node" id="pageranks"/>
+    <key attr.name="Component ID" attr.type="int" for="node" id="componentnumber"/>
+    <key attr.name="Inferred Class" attr.type="int" for="node" id="stat_inf_class"/>
+    <key attr.name="Clustering Coefficient" attr.type="double" for="node" id="clustering"/>
+    <key attr.name="Number of triangles" attr.type="int" for="node" id="triangles"/>
+    <key attr.name="Eigenvector Centrality" attr.type="double" for="node" id="eigencentrality"/>
+    <graph edgedefault="undirected">
+        <node id="0">
+            <data key="label">0</data>
+            <data key="d1">Mr. Hi</data>
+            <data key="degree">16</data>
+            <data key="modularity_class">0</data>
+            <data key="weighted degree">16.0</data>
+            <data key="eccentricity">3.0</data>
+            <data key="closnesscentrality">0.5689655172413793</data>
+            <data key="harmonicclosnesscentrality">0.7020202020202019</data>
+            <data key="betweenesscentrality">231.0714285714286</data>
+            <data key="authority">0.35550123</data>
+            <data key="hub">0.35548377</data>
+            <data key="pageranks">0.09700111471779065</data>
+            <data key="componentnumber">0</data>
+            <data key="stat_inf_class">0</data>
+            <data key="clustering">0.15</data>
+            <data key="triangles">18</data>
+            <data key="eigencentrality">0.9575395188459316</data>
+            <data key="size">60.0</data>
+            <data key="r">210</data>
+            <data key="g">124</data>
+            <data key="b">206</data>
+            <data key="x">254.21175</data>
+            <data key="y">-213.18367</data>
+        </node>
+        <node id="1">
+            <data key="label">1</data>
+            <data key="d1">Mr. Hi</data>
+            <data key="degree">9</data>
+            <data key="modularity_class">0</data>
+            <data key="weighted degree">9.0</data>
+            <data key="eccentricity">3.0</data>
+            <data key="closnesscentrality">0.4852941176470588</data>
+            <data key="harmonicclosnesscentrality">0.580808080808081</data>
+            <data key="betweenesscentrality">28.478571428571424</data>
+            <data key="authority">0.26596352</data>
+            <data key="hub">0.2659567</data>
+            <data key="pageranks">0.052872058423700706</data>
+            <data key="componentnumber">0</data>
+            <data key="stat_inf_class">0</data>
+            <data key="clustering">0.3333333333333333</data>
+            <data key="triangles">12</data>
+            <data key="eigencentrality">0.7015904561321445</data>
+            <data key="size">24.929829</data>
+            <data key="r">210</data>
+            <data key="g">124</data>
+            <data key="b">206</data>
+            <data key="x">132.86327</data>
+            <data key="y">-115.15629</data>
+        </node>
+        <node id="2">
+            <data key="label">2</data>
+            <data key="d1">Mr. Hi</data>
+            <data key="degree">10</data>
+            <data key="modularity_class">0</data>
+            <data key="weighted degree">10.0</data>
+            <data key="eccentricity">3.0</data>
+            <data key="closnesscentrality">0.559322033898305</data>
+            <data key="harmonicclosnesscentrality">0.6363636363636364</data>
+            <data key="betweenesscentrality">75.85079365079366</data>
+            <data key="authority">0.31719315</data>
+            <data key="hub">0.3171917</data>
+            <data key="pageranks">0.05707505154275126</data>
+            <data key="componentnumber">0</data>
+            <data key="stat_inf_class">0</data>
+            <data key="clustering">0.24444444444444444</data>
+            <data key="triangles">11</data>
+            <data key="eigencentrality">0.8385344763481368</data>
+            <data key="size">33.130276</data>
+            <data key="r">210</data>
+            <data key="g">124</data>
+            <data key="b">206</data>
+            <data key="x">-13.870207</data>
+            <data key="y">-34.07032</data>
+        </node>
+        <node id="3">
+            <data key="label">3</data>
+            <data key="d1">Mr. Hi</data>
+            <data key="degree">6</data>
+            <data key="modularity_class">0</data>
+            <data key="weighted degree">6.0</data>
+            <data key="eccentricity">3.0</data>
+            <data key="closnesscentrality">0.4647887323943662</data>
+            <data key="harmonicclosnesscentrality">0.5353535353535355</data>
+            <data key="betweenesscentrality">6.288095238095237</data>
+            <data key="authority">0.21117854</data>
+            <data key="hub">0.21117976</data>
+            <data key="pageranks">0.03586151754465541</data>
+            <data key="componentnumber">0</data>
+            <data key="stat_inf_class">0</data>
+            <data key="clustering">0.6666666666666666</data>
+            <data key="triangles">10</data>
+            <data key="eigencentrality">0.5564855706262903</data>
+            <data key="size">21.08851</data>
+            <data key="r">210</data>
+            <data key="g">124</data>
+            <data key="b">206</data>
+            <data key="x">93.22923</data>
+            <data key="y">-263.76315</data>
+        </node>
+        <node id="4">
+            <data key="label">4</data>
+            <data key="d1">Mr. Hi</data>
+            <data key="degree">3</data>
+            <data key="modularity_class">1</data>
+            <data key="weighted degree">3.0</data>
+            <data key="eccentricity">4.0</data>
+            <data key="closnesscentrality">0.3793103448275862</data>
+            <data key="harmonicclosnesscentrality">0.44444444444444453</data>
+            <data key="betweenesscentrality">0.3333333333333333</data>
+            <data key="authority">0.07596693</data>
+            <data key="hub">0.07596968</data>
+            <data key="pageranks">0.02198572019566727</data>
+            <data key="componentnumber">0</data>
+            <data key="stat_inf_class">0</data>
+            <data key="clustering">0.6666666666666666</data>
+            <data key="triangles">2</data>
+            <data key="eigencentrality">0.21392265463944807</data>
+            <data key="size">20.057703</data>
+            <data key="r">0</data>
+            <data key="g">183</data>
+            <data key="b">218</data>
+            <data key="x">424.4938</data>
+            <data key="y">-376.29126</data>
+        </node>
+        <node id="5">
+            <data key="label">5</data>
+            <data key="d1">Mr. Hi</data>
+            <data key="degree">4</data>
+            <data key="modularity_class">1</data>
+            <data key="weighted degree">4.0</data>
+            <data key="eccentricity">4.0</data>
+            <data key="closnesscentrality">0.38372093023255816</data>
+            <data key="harmonicclosnesscentrality">0.45959595959595967</data>
+            <data key="betweenesscentrality">15.833333333333334</data>
+            <data key="authority">0.07948095</data>
+            <data key="hub">0.07948401</data>
+            <data key="pageranks">0.02912335045745663</data>
+            <data key="componentnumber">0</data>
+            <data key="stat_inf_class">0</data>
+            <data key="clustering">0.5</data>
+            <data key="triangles">3</data>
+            <data key="eigencentrality">0.22754569330803504</data>
+            <data key="size">22.740856</data>
+            <data key="r">0</data>
+            <data key="g">183</data>
+            <data key="b">218</data>
+            <data key="x">529.66815</data>
+            <data key="y">-373.29248</data>
+        </node>
+        <node id="6">
+            <data key="label">6</data>
+            <data key="d1">Mr. Hi</data>
+            <data key="degree">4</data>
+            <data key="modularity_class">1</data>
+            <data key="weighted degree">4.0</data>
+            <data key="eccentricity">4.0</data>
+            <data key="closnesscentrality">0.38372093023255816</data>
+            <data key="harmonicclosnesscentrality">0.45959595959595967</data>
+            <data key="betweenesscentrality">15.833333333333332</data>
+            <data key="authority">0.07948095</data>
+            <data key="hub">0.07948401</data>
+            <data key="pageranks">0.02912335045745663</data>
+            <data key="componentnumber">0</data>
+            <data key="stat_inf_class">0</data>
+            <data key="clustering">0.5</data>
+            <data key="triangles">3</data>
+            <data key="eigencentrality">0.22754569330803504</data>
+            <data key="size">22.740856</data>
+            <data key="r">0</data>
+            <data key="g">183</data>
+            <data key="b">218</data>
+            <data key="x">492.4601</data>
+            <data key="y">-424.58636</data>
+        </node>
+        <node id="7">
+            <data key="label">7</data>
+            <data key="d1">Mr. Hi</data>
+            <data key="degree">4</data>
+            <data key="modularity_class">0</data>
+            <data key="weighted degree">4.0</data>
+            <data key="eccentricity">4.0</data>
+            <data key="closnesscentrality">0.44</data>
+            <data key="harmonicclosnesscentrality">0.4974747474747476</data>
+            <data key="betweenesscentrality">0.0</data>
+            <data key="authority">0.17095596</data>
+            <data key="hub">0.17096166</data>
+            <data key="pageranks">0.02449450477263483</data>
+            <data key="componentnumber">0</data>
+            <data key="stat_inf_class">0</data>
+            <data key="clustering">1.0</data>
+            <data key="triangles">6</data>
+            <data key="eigencentrality">0.45043021537956685</data>
+            <data key="size">20.0</data>
+            <data key="r">210</data>
+            <data key="g">124</data>
+            <data key="b">206</data>
+            <data key="x">117.670235</data>
+            <data key="y">-204.79073</data>
+        </node>
+        <node id="8">
+            <data key="label">8</data>
+            <data key="d1">Mr. Hi</data>
+            <data key="degree">5</data>
+            <data key="modularity_class">2</data>
+            <data key="weighted degree">5.0</data>
+            <data key="eccentricity">3.0</data>
+            <data key="closnesscentrality">0.515625</data>
+            <data key="harmonicclosnesscentrality">0.5606060606060606</data>
+            <data key="betweenesscentrality">29.52936507936508</data>
+            <data key="authority">0.22739664</data>
+            <data key="hub">0.22740892</data>
+            <data key="pageranks">0.029768145050266898</data>
+            <data key="componentnumber">0</data>
+            <data key="stat_inf_class">0</data>
+            <data key="clustering">0.5</data>
+            <data key="triangles">5</data>
+            <data key="eigencentrality">0.6050761733317068</data>
+            <data key="size">25.111729</data>
+            <data key="r">104</data>
+            <data key="g">173</data>
+            <data key="b">54</data>
+            <data key="x">-133.9543</data>
+            <data key="y">-33.364124</data>
+        </node>
+        <node id="9">
+            <data key="label">9</data>
+            <data key="d1">Officer</data>
+            <data key="degree">2</data>
+            <data key="modularity_class">0</data>
+            <data key="weighted degree">2.0</data>
+            <data key="eccentricity">4.0</data>
+            <data key="closnesscentrality">0.4342105263157895</data>
+            <data key="harmonicclosnesscentrality">0.47222222222222227</data>
+            <data key="betweenesscentrality">0.4476190476190476</data>
+            <data key="authority">0.10267026</data>
+            <data key="hub">0.102677055</data>
+            <data key="pageranks">0.014310466757881786</data>
+            <data key="componentnumber">0</data>
+            <data key="stat_inf_class">0</data>
+            <data key="clustering">0.0</data>
+            <data key="triangles">0</data>
+            <data key="eigencentrality">0.2715216860729827</data>
+            <data key="size">20.077486</data>
+            <data key="r">210</data>
+            <data key="g">124</data>
+            <data key="b">206</data>
+            <data key="x">-120.257164</data>
+            <data key="y">70.90197</data>
+        </node>
+        <node id="10">
+            <data key="label">10</data>
+            <data key="d1">Mr. Hi</data>
+            <data key="degree">3</data>
+            <data key="modularity_class">1</data>
+            <data key="weighted degree">3.0</data>
+            <data key="eccentricity">4.0</data>
+            <data key="closnesscentrality">0.3793103448275862</data>
+            <data key="harmonicclosnesscentrality">0.44444444444444453</data>
+            <data key="betweenesscentrality">0.3333333333333333</data>
+            <data key="authority">0.07596693</data>
+            <data key="hub">0.07596968</data>
+            <data key="pageranks">0.02198572019566727</data>
+            <data key="componentnumber">0</data>
+            <data key="stat_inf_class">0</data>
+            <data key="clustering">0.6666666666666666</data>
+            <data key="triangles">2</data>
+            <data key="eigencentrality">0.21392265463944807</data>
+            <data key="size">20.057703</data>
+            <data key="r">0</data>
+            <data key="g">183</data>
+            <data key="b">218</data>
+            <data key="x">462.12708</data>
+            <data key="y">-325.13986</data>
+        </node>
+        <node id="11">
+            <data key="label">11</data>
+            <data key="d1">Mr. Hi</data>
+            <data key="degree">1</data>
+            <data key="modularity_class">0</data>
+            <data key="weighted degree">1.0</data>
+            <data key="eccentricity">4.0</data>
+            <data key="closnesscentrality">0.36666666666666664</data>
+            <data key="harmonicclosnesscentrality">0.40909090909090917</data>
+            <data key="betweenesscentrality">0.0</data>
+            <data key="authority">0.052853167</data>
+            <data key="hub">0.052857153</data>
+            <data key="pageranks">0.009566873943288109</data>
+            <data key="componentnumber">0</data>
+            <data key="stat_inf_class">0</data>
+            <data key="clustering">0.0</data>
+            <data key="triangles">0</data>
+            <data key="eigencentrality">0.14329627771441228</data>
+            <data key="size">20.0</data>
+            <data key="r">210</data>
+            <data key="g">124</data>
+            <data key="b">206</data>
+            <data key="x">374.1203</data>
+            <data key="y">-239.33879</data>
+        </node>
+        <node id="12">
+            <data key="label">12</data>
+            <data key="d1">Mr. Hi</data>
+            <data key="degree">2</data>
+            <data key="modularity_class">0</data>
+            <data key="weighted degree">2.0</data>
+            <data key="eccentricity">4.0</data>
+            <data key="closnesscentrality">0.3707865168539326</data>
+            <data key="harmonicclosnesscentrality">0.42424242424242437</data>
+            <data key="betweenesscentrality">0.0</data>
+            <data key="authority">0.084252134</data>
+            <data key="hub">0.08425591</data>
+            <data key="pageranks">0.014647535524832979</data>
+            <data key="componentnumber">0</data>
+            <data key="stat_inf_class">0</data>
+            <data key="clustering">1.0</data>
+            <data key="triangles">1</data>
+            <data key="eigencentrality">0.22486233497005065</data>
+            <data key="size">20.0</data>
+            <data key="r">210</data>
+            <data key="g">124</data>
+            <data key="b">206</data>
+            <data key="x">184.70964</data>
+            <data key="y">-350.44547</data>
+        </node>
+        <node id="13">
+            <data key="label">13</data>
+            <data key="d1">Mr. Hi</data>
+            <data key="degree">5</data>
+            <data key="modularity_class">0</data>
+            <data key="weighted degree">5.0</data>
+            <data key="eccentricity">3.0</data>
+            <data key="closnesscentrality">0.515625</data>
+            <data key="harmonicclosnesscentrality">0.5606060606060606</data>
+            <data key="betweenesscentrality">24.215873015873015</data>
+            <data key="authority">0.2264652</data>
+            <data key="hub">0.22647734</data>
+            <data key="pageranks">0.029541567689342206</data>
+            <data key="componentnumber">0</data>
+            <data key="stat_inf_class">0</data>
+            <data key="clustering">0.6</data>
+            <data key="triangles">6</data>
+            <data key="eigencentrality">0.599324757220512</data>
+            <data key="size">24.191929</data>
+            <data key="r">210</data>
+            <data key="g">124</data>
+            <data key="b">206</data>
+            <data key="x">18.879534</data>
+            <data key="y">-138.93845</data>
+        </node>
+        <node id="14">
+            <data key="label">14</data>
+            <data key="d1">Officer</data>
+            <data key="degree">2</data>
+            <data key="modularity_class">2</data>
+            <data key="weighted degree">2.0</data>
+            <data key="eccentricity">5.0</data>
+            <data key="closnesscentrality">0.3707865168539326</data>
+            <data key="harmonicclosnesscentrality">0.4303030303030304</data>
+            <data key="betweenesscentrality">0.0</data>
+            <data key="authority">0.101397574</data>
+            <data key="hub">0.10140747</data>
+            <data key="pageranks">0.014538162537679394</data>
+            <data key="componentnumber">0</data>
+            <data key="stat_inf_class">0</data>
+            <data key="clustering">1.0</data>
+            <data key="triangles">1</data>
+            <data key="eigencentrality">0.27126871026753996</data>
+            <data key="size">20.0</data>
+            <data key="r">104</data>
+            <data key="g">173</data>
+            <data key="b">54</data>
+            <data key="x">-366.4781</data>
+            <data key="y">236.04733</data>
+        </node>
+        <node id="15">
+            <data key="label">15</data>
+            <data key="d1">Officer</data>
+            <data key="degree">2</data>
+            <data key="modularity_class">2</data>
+            <data key="weighted degree">2.0</data>
+            <data key="eccentricity">5.0</data>
+            <data key="closnesscentrality">0.3707865168539326</data>
+            <data key="harmonicclosnesscentrality">0.4303030303030304</data>
+            <data key="betweenesscentrality">0.0</data>
+            <data key="authority">0.101397574</data>
+            <data key="hub">0.10140747</data>
+            <data key="pageranks">0.014538162537679394</data>
+            <data key="componentnumber">0</data>
+            <data key="stat_inf_class">0</data>
+            <data key="clustering">1.0</data>
+            <data key="triangles">1</data>
+            <data key="eigencentrality">0.27126871026753996</data>
+            <data key="size">20.0</data>
+            <data key="r">104</data>
+            <data key="g">173</data>
+            <data key="b">54</data>
+            <data key="x">-413.8291</data>
+            <data key="y">219.00433</data>
+        </node>
+        <node id="16">
+            <data key="label">16</data>
+            <data key="d1">Mr. Hi</data>
+            <data key="degree">2</data>
+            <data key="modularity_class">1</data>
+            <data key="weighted degree">2.0</data>
+            <data key="eccentricity">5.0</data>
+            <data key="closnesscentrality">0.28448275862068967</data>
+            <data key="harmonicclosnesscentrality">0.33636363636363625</data>
+            <data key="betweenesscentrality">0.0</data>
+            <data key="authority">0.023636302</data>
+            <data key="hub">0.023635006</data>
+            <data key="pageranks">0.01679000651541834</data>
+            <data key="componentnumber">0</data>
+            <data key="stat_inf_class">0</data>
+            <data key="clustering">1.0</data>
+            <data key="triangles">1</data>
+            <data key="eigencentrality">0.07345232647945062</data>
+            <data key="size">20.0</data>
+            <data key="r">0</data>
+            <data key="g">183</data>
+            <data key="b">218</data>
+            <data key="x">590.7603</data>
+            <data key="y">-456.2474</data>
+        </node>
+        <node id="17">
+            <data key="label">17</data>
+            <data key="d1">Mr. Hi</data>
+            <data key="degree">2</data>
+            <data key="modularity_class">0</data>
+            <data key="weighted degree">2.0</data>
+            <data key="eccentricity">4.0</data>
+            <data key="closnesscentrality">0.375</data>
+            <data key="harmonicclosnesscentrality">0.4292929292929294</data>
+            <data key="betweenesscentrality">0.0</data>
+            <data key="authority">0.09239596</data>
+            <data key="hub">0.092401534</data>
+            <data key="pageranks">0.014562204055797907</data>
+            <data key="componentnumber">0</data>
+            <data key="stat_inf_class">0</data>
+            <data key="clustering">1.0</data>
+            <data key="triangles">1</data>
+            <data key="eigencentrality">0.24623701389189112</data>
+            <data key="size">20.0</data>
+            <data key="r">210</data>
+            <data key="g">124</data>
+            <data key="b">206</data>
+            <data key="x">310.8329</data>
+            <data key="y">-129.03435</data>
+        </node>
+        <node id="18">
+            <data key="label">18</data>
+            <data key="d1">Officer</data>
+            <data key="degree">2</data>
+            <data key="modularity_class">2</data>
+            <data key="weighted degree">2.0</data>
+            <data key="eccentricity">5.0</data>
+            <data key="closnesscentrality">0.3707865168539326</data>
+            <data key="harmonicclosnesscentrality">0.4303030303030304</data>
+            <data key="betweenesscentrality">0.0</data>
+            <data key="authority">0.101397574</data>
+            <data key="hub">0.10140747</data>
+            <data key="pageranks">0.014538162537679394</data>
+            <data key="componentnumber">0</data>
+            <data key="stat_inf_class">0</data>
+            <data key="clustering">1.0</data>
+            <data key="triangles">1</data>
+            <data key="eigencentrality">0.27126871026753996</data>
+            <data key="size">20.0</data>
+            <data key="r">104</data>
+            <data key="g">173</data>
+            <data key="b">54</data>
+            <data key="x">-429.84445</data>
+            <data key="y">173.76929</data>
+        </node>
+        <node id="19">
+            <data key="label">19</data>
+            <data key="d1">Mr. Hi</data>
+            <data key="degree">3</data>
+            <data key="modularity_class">0</data>
+            <data key="weighted degree">3.0</data>
+            <data key="eccentricity">3.0</data>
+            <data key="closnesscentrality">0.5</data>
+            <data key="harmonicclosnesscentrality">0.5303030303030303</data>
+            <data key="betweenesscentrality">17.1468253968254</data>
+            <data key="authority">0.1479052</data>
+            <data key="hub">0.14791721</data>
+            <data key="pageranks">0.01960926697250528</data>
+            <data key="componentnumber">0</data>
+            <data key="stat_inf_class">0</data>
+            <data key="clustering">0.3333333333333333</data>
+            <data key="triangles">1</data>
+            <data key="eigencentrality">0.39513155573283654</data>
+            <data key="size">22.96823</data>
+            <data key="r">210</data>
+            <data key="g">124</data>
+            <data key="b">206</data>
+            <data key="x">102.46423</data>
+            <data key="y">-4.1796703</data>
+        </node>
+        <node id="20">
+            <data key="label">20</data>
+            <data key="d1">Officer</data>
+            <data key="degree">2</data>
+            <data key="modularity_class">2</data>
+            <data key="weighted degree">2.0</data>
+            <data key="eccentricity">5.0</data>
+            <data key="closnesscentrality">0.3707865168539326</data>
+            <data key="harmonicclosnesscentrality">0.4303030303030304</data>
+            <data key="betweenesscentrality">0.0</data>
+            <data key="authority">0.101397574</data>
+            <data key="hub">0.10140747</data>
+            <data key="pageranks">0.014538162537679394</data>
+            <data key="componentnumber">0</data>
+            <data key="stat_inf_class">0</data>
+            <data key="clustering">1.0</data>
+            <data key="triangles">1</data>
+            <data key="eigencentrality">0.27126871026753996</data>
+            <data key="size">20.0</data>
+            <data key="r">104</data>
+            <data key="g">173</data>
+            <data key="b">54</data>
+            <data key="x">-426.84915</data>
+            <data key="y">123.81682</data>
+        </node>
+        <node id="21">
+            <data key="label">21</data>
+            <data key="d1">Mr. Hi</data>
+            <data key="degree">2</data>
+            <data key="modularity_class">0</data>
+            <data key="weighted degree">2.0</data>
+            <data key="eccentricity">4.0</data>
+            <data key="closnesscentrality">0.375</data>
+            <data key="harmonicclosnesscentrality">0.4292929292929294</data>
+            <data key="betweenesscentrality">0.0</data>
+            <data key="authority">0.09239596</data>
+            <data key="hub">0.092401534</data>
+            <data key="pageranks">0.014562204055797907</data>
+            <data key="componentnumber">0</data>
+            <data key="stat_inf_class">0</data>
+            <data key="clustering">1.0</data>
+            <data key="triangles">1</data>
+            <data key="eigencentrality">0.24623701389189112</data>
+            <data key="size">20.0</data>
+            <data key="r">210</data>
+            <data key="g">124</data>
+            <data key="b">206</data>
+            <data key="x">268.81595</data>
+            <data key="y">-105.615715</data>
+        </node>
+        <node id="22">
+            <data key="label">22</data>
+            <data key="d1">Officer</data>
+            <data key="degree">2</data>
+            <data key="modularity_class">2</data>
+            <data key="weighted degree">2.0</data>
+            <data key="eccentricity">5.0</data>
+            <data key="closnesscentrality">0.3707865168539326</data>
+            <data key="harmonicclosnesscentrality">0.4303030303030304</data>
+            <data key="betweenesscentrality">0.0</data>
+            <data key="authority">0.101397574</data>
+            <data key="hub">0.10140747</data>
+            <data key="pageranks">0.014538162537679394</data>
+            <data key="componentnumber">0</data>
+            <data key="stat_inf_class">0</data>
+            <data key="clustering">1.0</data>
+            <data key="triangles">1</data>
+            <data key="eigencentrality">0.27126871026753996</data>
+            <data key="size">20.0</data>
+            <data key="r">104</data>
+            <data key="g">173</data>
+            <data key="b">54</data>
+            <data key="x">-393.6056</data>
+            <data key="y">78.56646</data>
+        </node>
+        <node id="23">
+            <data key="label">23</data>
+            <data key="d1">Officer</data>
+            <data key="degree">5</data>
+            <data key="modularity_class">3</data>
+            <data key="weighted degree">5.0</data>
+            <data key="eccentricity">5.0</data>
+            <data key="closnesscentrality">0.39285714285714285</data>
+            <data key="harmonicclosnesscentrality">0.48585858585858593</data>
+            <data key="betweenesscentrality">9.299999999999999</data>
+            <data key="authority">0.1501142</data>
+            <data key="hub">0.15012214</data>
+            <data key="pageranks">0.031520682467353435</data>
+            <data key="componentnumber">0</data>
+            <data key="stat_inf_class">0</data>
+            <data key="clustering">0.4</data>
+            <data key="triangles">4</data>
+            <data key="eigencentrality">0.40673301145139806</data>
+            <data key="size">21.609892</data>
+            <data key="r">255</data>
+            <data key="g">116</data>
+            <data key="b">62</data>
+            <data key="x">-238.18413</data>
+            <data key="y">364.57834</data>
+        </node>
+        <node id="24">
+            <data key="label">24</data>
+            <data key="d1">Officer</data>
+            <data key="degree">3</data>
+            <data key="modularity_class">3</data>
+            <data key="weighted degree">3.0</data>
+            <data key="eccentricity">4.0</data>
+            <data key="closnesscentrality">0.375</data>
+            <data key="harmonicclosnesscentrality">0.4217171717171717</data>
+            <data key="betweenesscentrality">1.1666666666666665</data>
+            <data key="authority">0.057054758</data>
+            <data key="hub">0.05705106</data>
+            <data key="pageranks">0.021071948246981807</data>
+            <data key="componentnumber">0</data>
+            <data key="stat_inf_class">0</data>
+            <data key="clustering">0.3333333333333333</data>
+            <data key="triangles">1</data>
+            <data key="eigencentrality">0.15869732767010997</data>
+            <data key="size">20.201958</data>
+            <data key="r">255</data>
+            <data key="g">116</data>
+            <data key="b">62</data>
+            <data key="x">-26.279707</data>
+            <data key="y">401.47763</data>
+        </node>
+        <node id="25">
+            <data key="label">25</data>
+            <data key="d1">Officer</data>
+            <data key="degree">3</data>
+            <data key="modularity_class">3</data>
+            <data key="weighted degree">3.0</data>
+            <data key="eccentricity">4.0</data>
+            <data key="closnesscentrality">0.375</data>
+            <data key="harmonicclosnesscentrality">0.42171717171717166</data>
+            <data key="betweenesscentrality">2.0277777777777777</data>
+            <data key="authority">0.059209213</data>
+            <data key="hub">0.059204873</data>
+            <data key="pageranks">0.02100138367791639</data>
+            <data key="componentnumber">0</data>
+            <data key="stat_inf_class">0</data>
+            <data key="clustering">0.3333333333333333</data>
+            <data key="triangles">1</data>
+            <data key="eigencentrality">0.16524167986960478</data>
+            <data key="size">20.351023</data>
+            <data key="r">255</data>
+            <data key="g">116</data>
+            <data key="b">62</data>
+            <data key="x">-88.04055</data>
+            <data key="y">431.83356</data>
+        </node>
+        <node id="26">
+            <data key="label">26</data>
+            <data key="d1">Officer</data>
+            <data key="degree">2</data>
+            <data key="modularity_class">3</data>
+            <data key="weighted degree">2.0</data>
+            <data key="eccentricity">5.0</data>
+            <data key="closnesscentrality">0.3626373626373626</data>
+            <data key="harmonicclosnesscentrality">0.4227272727272728</data>
+            <data key="betweenesscentrality">0.0</data>
+            <data key="authority">0.075576715</data>
+            <data key="hub">0.07558155</data>
+            <data key="pageranks">0.01504302810566421</data>
+            <data key="componentnumber">0</data>
+            <data key="stat_inf_class">0</data>
+            <data key="clustering">1.0</data>
+            <data key="triangles">1</data>
+            <data key="eigencentrality">0.20373542985149842</data>
+            <data key="size">20.0</data>
+            <data key="r">255</data>
+            <data key="g">116</data>
+            <data key="b">62</data>
+            <data key="x">-394.3299</data>
+            <data key="y">355.12494</data>
+        </node>
+        <node id="27">
+            <data key="label">27</data>
+            <data key="d1">Officer</data>
+            <data key="degree">4</data>
+            <data key="modularity_class">3</data>
+            <data key="weighted degree">4.0</data>
+            <data key="eccentricity">4.0</data>
+            <data key="closnesscentrality">0.4583333333333333</data>
+            <data key="harmonicclosnesscentrality">0.5126262626262625</data>
+            <data key="betweenesscentrality">11.79206349206349</data>
+            <data key="authority">0.13347386</data>
+            <data key="hub">0.13347965</data>
+            <data key="pageranks">0.025638221635415934</data>
+            <data key="componentnumber">0</data>
+            <data key="stat_inf_class">0</data>
+            <data key="clustering">0.16666666666666666</data>
+            <data key="triangles">1</data>
+            <data key="eigencentrality">0.3586894514457826</data>
+            <data key="size">22.041285</data>
+            <data key="r">255</data>
+            <data key="g">116</data>
+            <data key="b">62</data>
+            <data key="x">-110.59226</data>
+            <data key="y">298.7256</data>
+        </node>
+        <node id="28">
+            <data key="label">28</data>
+            <data key="d1">Officer</data>
+            <data key="degree">3</data>
+            <data key="modularity_class">0</data>
+            <data key="weighted degree">3.0</data>
+            <data key="eccentricity">4.0</data>
+            <data key="closnesscentrality">0.4520547945205479</data>
+            <data key="harmonicclosnesscentrality">0.4974747474747474</data>
+            <data key="betweenesscentrality">0.9476190476190476</data>
+            <data key="authority">0.13107587</data>
+            <data key="hub">0.13107933</data>
+            <data key="pageranks">0.019572330852381675</data>
+            <data key="componentnumber">0</data>
+            <data key="stat_inf_class">0</data>
+            <data key="clustering">0.3333333333333333</data>
+            <data key="triangles">1</data>
+            <data key="eigencentrality">0.3495956005697878</data>
+            <data key="size">20.16404</data>
+            <data key="r">210</data>
+            <data key="g">124</data>
+            <data key="b">206</data>
+            <data key="x">-56.452686</data>
+            <data key="y">146.68408</data>
+        </node>
+        <node id="29">
+            <data key="label">29</data>
+            <data key="d1">Officer</data>
+            <data key="degree">4</data>
+            <data key="modularity_class">3</data>
+            <data key="weighted degree">4.0</data>
+            <data key="eccentricity">5.0</data>
+            <data key="closnesscentrality">0.38372093023255816</data>
+            <data key="harmonicclosnesscentrality">0.4656565656565657</data>
+            <data key="betweenesscentrality">1.5428571428571427</data>
+            <data key="authority">0.134957</data>
+            <data key="hub">0.13496397</data>
+            <data key="pageranks">0.026286313851290783</data>
+            <data key="componentnumber">0</data>
+            <data key="stat_inf_class">0</data>
+            <data key="clustering">0.6666666666666666</data>
+            <data key="triangles">4</data>
+            <data key="eigencentrality">0.36404462782009495</data>
+            <data key="size">20.267078</data>
+            <data key="r">255</data>
+            <data key="g">116</data>
+            <data key="b">62</data>
+            <data key="x">-348.0914</data>
+            <data key="y">337.19992</data>
+        </node>
+        <node id="30">
+            <data key="label">30</data>
+            <data key="d1">Officer</data>
+            <data key="degree">4</data>
+            <data key="modularity_class">2</data>
+            <data key="weighted degree">4.0</data>
+            <data key="eccentricity">4.0</data>
+            <data key="closnesscentrality">0.4583333333333333</data>
+            <data key="harmonicclosnesscentrality">0.5126262626262627</data>
+            <data key="betweenesscentrality">7.60952380952381</data>
+            <data key="authority">0.17475323</data>
+            <data key="hub">0.17476197</data>
+            <data key="pageranks">0.024592142352161478</data>
+            <data key="componentnumber">0</data>
+            <data key="stat_inf_class">0</data>
+            <data key="clustering">0.5</data>
+            <data key="triangles">3</data>
+            <data key="eigencentrality">0.462759638846988</data>
+            <data key="size">21.317259</data>
+            <data key="r">104</data>
+            <data key="g">173</data>
+            <data key="b">54</data>
+            <data key="x">-197.68875</data>
+            <data key="y">-0.8575565</data>
+        </node>
+        <node id="31">
+            <data key="label">31</data>
+            <data key="d1">Officer</data>
+            <data key="degree">6</data>
+            <data key="modularity_class">3</data>
+            <data key="weighted degree">6.0</data>
+            <data key="eccentricity">3.0</data>
+            <data key="closnesscentrality">0.5409836065573771</data>
+            <data key="harmonicclosnesscentrality">0.585858585858586</data>
+            <data key="betweenesscentrality">73.00952380952378</data>
+            <data key="authority">0.19102511</data>
+            <data key="hub">0.19103996</data>
+            <data key="pageranks">0.037160617753780094</data>
+            <data key="componentnumber">0</data>
+            <data key="stat_inf_class">0</data>
+            <data key="clustering">0.2</data>
+            <data key="triangles">3</data>
+            <data key="eigencentrality">0.5186853270862061</data>
+            <data key="size">32.638435</data>
+            <data key="r">255</data>
+            <data key="g">116</data>
+            <data key="b">62</data>
+            <data key="x">-32.482304</data>
+            <data key="y">230.99673</data>
+        </node>
+        <node id="32">
+            <data key="label">32</data>
+            <data key="d1">Officer</data>
+            <data key="degree">12</data>
+            <data key="modularity_class">2</data>
+            <data key="weighted degree">12.0</data>
+            <data key="eccentricity">4.0</data>
+            <data key="closnesscentrality">0.515625</data>
+            <data key="harmonicclosnesscentrality">0.6338383838383839</data>
+            <data key="betweenesscentrality">76.69047619047618</data>
+            <data key="authority">0.3086543</data>
+            <data key="hub">0.30863845</data>
+            <data key="pageranks">0.07166321420416602</data>
+            <data key="componentnumber">0</data>
+            <data key="stat_inf_class">0</data>
+            <data key="clustering">0.19696969696969696</data>
+            <data key="triangles">13</data>
+            <data key="eigencentrality">0.8255716195366253</data>
+            <data key="size">33.27563</data>
+            <data key="r">104</data>
+            <data key="g">173</data>
+            <data key="b">54</data>
+            <data key="x">-333.05087</data>
+            <data key="y">144.67307</data>
+        </node>
+        <node id="33">
+            <data key="label">33</data>
+            <data key="d1">Officer</data>
+            <data key="degree">17</data>
+            <data key="modularity_class">2</data>
+            <data key="weighted degree">17.0</data>
+            <data key="eccentricity">4.0</data>
+            <data key="closnesscentrality">0.55</data>
+            <data key="harmonicclosnesscentrality">0.7045454545454546</data>
+            <data key="betweenesscentrality">160.5515873015873</data>
+            <data key="authority">0.37338167</data>
+            <data key="hub">0.3733524</data>
+            <data key="pageranks">0.10087864529157908</data>
+            <data key="componentnumber">0</data>
+            <data key="stat_inf_class">0</data>
+            <data key="clustering">0.11029411764705882</data>
+            <data key="triangles">15</data>
+            <data key="eigencentrality">1.0</data>
+            <data key="size">47.79255</data>
+            <data key="r">104</data>
+            <data key="g">173</data>
+            <data key="b">54</data>
+            <data key="x">-233.54373</data>
+            <data key="y">174.93097</data>
+        </node>
+        <edge id="0" source="0" target="1">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="1" source="0" target="2">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="2" source="0" target="3">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="3" source="0" target="4">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="4" source="0" target="5">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="5" source="0" target="6">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="6" source="0" target="7">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="7" source="0" target="8">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="8" source="0" target="10">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="9" source="0" target="11">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="10" source="0" target="12">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="11" source="0" target="13">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="12" source="0" target="17">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="13" source="0" target="19">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="14" source="0" target="21">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="15" source="0" target="31">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="16" source="1" target="2">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="17" source="1" target="3">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="18" source="1" target="7">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="19" source="1" target="13">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="20" source="1" target="17">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="21" source="1" target="19">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="22" source="1" target="21">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="23" source="1" target="30">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="24" source="2" target="3">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="25" source="2" target="7">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="26" source="2" target="8">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="27" source="2" target="9">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="28" source="2" target="13">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="29" source="2" target="27">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="30" source="2" target="28">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="31" source="2" target="32">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="32" source="3" target="7">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="33" source="3" target="12">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="34" source="3" target="13">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="35" source="4" target="6">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="36" source="4" target="10">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="37" source="5" target="6">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="38" source="5" target="10">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="39" source="5" target="16">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="40" source="6" target="16">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="41" source="8" target="30">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="42" source="8" target="32">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="43" source="8" target="33">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="44" source="9" target="33">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="45" source="13" target="33">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="46" source="14" target="32">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="47" source="14" target="33">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="48" source="15" target="32">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="49" source="15" target="33">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="50" source="18" target="32">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="51" source="18" target="33">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="52" source="19" target="33">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="53" source="20" target="32">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="54" source="20" target="33">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="55" source="22" target="32">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="56" source="22" target="33">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="57" source="23" target="25">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="58" source="23" target="27">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="59" source="23" target="29">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="60" source="23" target="32">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="61" source="23" target="33">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="62" source="24" target="25">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="63" source="24" target="27">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="64" source="24" target="31">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="65" source="25" target="31">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="66" source="26" target="29">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="67" source="26" target="33">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="68" source="27" target="33">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="69" source="28" target="31">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="70" source="28" target="33">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="71" source="29" target="32">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="72" source="29" target="33">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="73" source="30" target="32">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="74" source="30" target="33">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="75" source="31" target="32">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="76" source="31" target="33">
+            <data key="weight">1.0</data>
+        </edge>
+        <edge id="77" source="32" target="33">
+            <data key="weight">1.0</data>
+        </edge>
+    </graph>
+</graphml>
