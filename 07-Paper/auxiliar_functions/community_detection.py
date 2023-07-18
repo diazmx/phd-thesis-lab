@@ -164,20 +164,21 @@ def add_type_commts(network, dict_commts, s_threshold, m_threshold):
     network.vs["tpcommty"] = -1
 
     for commty in dict_commts.items():
+        # print(commty)
         if len(commty[1][1]) > s_threshold:  # Sparse commts
-            s_commts.append(commty)
+            s_commts.append((commty[0], [commty[1][0], commty[1][1], 0]))
             add_type_commty(network, commty[0], 0)
         elif len(commty[1][1]) > m_threshold:  # Medium commts
-            m_commts.append(commty)
+            m_commts.append((commty[0], [commty[1][0], commty[1][1], 1]))
             add_type_commty(network, commty[0], 1)
         else:
-            c_commts.append(commty)
+            c_commts.append((commty[0], [commty[1][0], commty[1][1], 2]))
             add_type_commty(network, commty[0], 2)
 
-    print("# Comunidades:", len(s_commts)+len(m_commts)+len(c_commts), "==",
+    print("|C|:", len(s_commts)+len(m_commts)+len(c_commts), "==",
           len(dict_commts))
-    print("Big Comms:", len(s_commts))
-    print("Med Comms:", len(m_commts))
-    print("Sma Comms:", len(c_commts))
+    print("Sparse Comms:", len(s_commts))
+    print("Medium Comms:", len(m_commts))
+    print("Concentrate Comms:", len(c_commts))
 
     return s_commts, m_commts, c_commts
