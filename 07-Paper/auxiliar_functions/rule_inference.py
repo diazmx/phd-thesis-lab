@@ -97,11 +97,16 @@ def attribute_value_common(data_):
         init_Sup -= 0.1
         init_Conf -= 0.1
 
+        if init_Sup < 0:
+            rules = [data_.values[0][:-1], [], [1]]
+            print(rules)
+            break
+
     # print(rules)
     rules = [list(r[0])+list(r[1])+[r[-1]] for r in rules]
     rules = remove_equal_rulesX(rules)
     rules = [list(r) for r in rules]
-    # print(rules)
+    #print(rules)
 
     reglas_karimi = []
     for r in rules:

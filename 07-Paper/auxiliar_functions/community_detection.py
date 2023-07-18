@@ -65,7 +65,7 @@ def get_all_resources_in_commty(commty_graph):
     return all_resources
 
 
-def sub_community_detection(user_network, prev_partition, density_t=0.5):
+def sub_community_detection(user_network, density_t=0.5, refinement=None):
     """Get all communities including sub-community detection.
 
     Parameters
@@ -116,7 +116,10 @@ def sub_community_detection(user_network, prev_partition, density_t=0.5):
                 all_rescs_commty = get_all_resources_in_commty(sub_commty)
                 id_commty_str = str(commty_counter)  # Convert the id to str
                 # Add the new community to the dict
-                dict_commts[id_commty_str] = [sub_commty, all_rescs_commty]
+                if refinement != None:
+                    dict_commts[id_commty_str+str(refinement)] = [sub_commty, all_rescs_commty]
+                else:    
+                    dict_commts[id_commty_str] = [sub_commty, all_rescs_commty]
                 # Add new ID commty to the user in user network
                 add_id_comm_to_nodes(user_network, sub_commty, id_commty_str)
                 commty_counter += 1
@@ -125,7 +128,10 @@ def sub_community_detection(user_network, prev_partition, density_t=0.5):
             all_rescs_commty = get_all_resources_in_commty(graph_commty)
             id_commty_str = str(commty_counter)  # Convert the id to str
             # Add the new community to the dict
-            dict_commts[id_commty_str] = [graph_commty, all_rescs_commty]
+            if refinement != None:
+                dict_commts[id_commty_str+str(refinement)] = [sub_commty, all_rescs_commty]
+            else:    
+                dict_commts[id_commty_str] = [sub_commty, all_rescs_commty]
             # Add new ID commty to the user in user network
             add_id_comm_to_nodes(user_network, graph_commty, id_commty_str)
             commty_counter += 1
