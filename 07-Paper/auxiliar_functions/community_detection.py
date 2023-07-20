@@ -117,8 +117,9 @@ def sub_community_detection(user_network, density_t=0.5, refinement=None):
                 id_commty_str = str(commty_counter)  # Convert the id to str
                 # Add the new community to the dict
                 if refinement != None:
-                    dict_commts[id_commty_str+str(refinement)] = [sub_commty, all_rescs_commty]
-                else:    
+                    dict_commts[id_commty_str +
+                                str(refinement)] = [sub_commty, all_rescs_commty]
+                else:
                     dict_commts[id_commty_str] = [sub_commty, all_rescs_commty]
                 # Add new ID commty to the user in user network
                 add_id_comm_to_nodes(user_network, sub_commty, id_commty_str)
@@ -129,9 +130,10 @@ def sub_community_detection(user_network, density_t=0.5, refinement=None):
             id_commty_str = str(commty_counter)  # Convert the id to str
             # Add the new community to the dict
             if refinement != None:
-                dict_commts[id_commty_str+str(refinement)] = [sub_commty, all_rescs_commty]
-            else:    
-                dict_commts[id_commty_str] = [sub_commty, all_rescs_commty]
+                dict_commts[id_commty_str +
+                            str(refinement)] = [graph_commty, all_rescs_commty]
+            else:
+                dict_commts[id_commty_str] = [graph_commty, all_rescs_commty]
             # Add new ID commty to the user in user network
             add_id_comm_to_nodes(user_network, graph_commty, id_commty_str)
             commty_counter += 1

@@ -68,12 +68,12 @@ class PolicyMining:
             ###### ***** TASK 1 ***** #####
             # Handling missing and null values.
             print("\nTASK 1: Done!\n")  # Not applicable
-            self.df_train_k = add_new_index(
-                self.df_train_k, self.user_attrs, type="U")
 
             ###### ***** TASK 2 ***** #####
             # Converting continuous values to categorical values.
             print("TASK 2: Done!\n")  # Not applicable
+            self.df_train_k = add_new_index(
+                self.df_train_k, self.user_attrs, type="U")
 
             ###### ***** TASK 3 ***** #####
             # Removing duplicated access requests.
@@ -370,7 +370,7 @@ class PolicyMining:
             df_users_commty = get_attrs_from_user(
                 commty_[1][0], self.df_train_k_pos, self.user_attrs,
                 commty_resources, self.bip_network)
-            #print(df_users_commty.values[0])
+            # print(df_users_commty.values[0])
             rule_user_attrs = attribute_value_common(df_users_commty)
             rule_i[1] = rule_i[1] + rule_user_attrs
             self.list_rules.append(rule_i)
@@ -508,8 +508,8 @@ class PolicyMining:
 
         for commty_ in self.all_commts_ref:
             commty_resources = commty_[1][1]  # Get resources
-            print(commty_[0])
-            print(commty_[1][2])
+            # print(commty_[0])
+            # print(commty_[1][2])
 
             if commty_[1][2] != 2:
 
@@ -532,11 +532,10 @@ class PolicyMining:
                         # Atributos frecuentes en usuarios
                         df_users_commty = get_attrs_from_user_sig(
                             commty_[1][0], df_fn, self.user_attrs, sig_resource, self.bip_network_ref)
-                    
+
                         rule_user_attrs = attribute_value_common(
                             df_users_commty)
-                        
-                    
+
                         rule_i[1] = rule_i[1] + rule_user_attrs
                         self.list_rules_ref.append(rule_i)
 
@@ -562,9 +561,9 @@ class PolicyMining:
             df_users_commty = get_attrs_from_user(
                 commty_[1][0], df_fn, self.user_attrs,
                 commty_resources, self.bip_network_ref)
-            print(df_users_commty)
+            # print(df_users_commty)
             rule_user_attrs = attribute_value_common(df_users_commty)
-            print(rule_user_attrs)
+            # print(rule_user_attrs)
             rule_i[1] = rule_i[1] + rule_user_attrs
             self.list_rules_ref.append(rule_i)
         print("|R|:", len(self.list_rules_ref))
@@ -602,41 +601,49 @@ class PolicyMining:
         print("Rule Network\n", nx.info(self.rule_network_ref))
         print("TASK 2: Done!\n")
 
-
-        copy_g_proj2 = self.user_network.copy() # Copia del grafo
+        copy_g_proj2 = self.user_network.copy()  # Copia del grafo
         modificaciones = 0
 
         lista_comid = []
         # Se agrega su id de comunidad
         for node in copy_g_proj2.vs():
             bandera = True
-            for i in dict_commts_ref:        
+            for i in dict_commts_ref:
                 if str(node["name"]) in dict_commts_ref[i][0].vs()["name"]:
-                    #print(i)
+                    # print(i)
                     modificaciones += 1
                     lista_comid.append(i)
                     bandera = False
             if bandera:
                 lista_comid.append(node["commty"])
-                
+
         print("Usuarios modificar: ", modificaciones)
         print("Tamano lista Comid: ", len(lista_comid))
         copy_g_proj2.vs["commty"] = lista_comid
-        print(copy_g_proj2.summary())
-        print(copy_g_proj2.vs()[0:10])
+        # print(copy_g_proj2.summary())
+        # print(copy_g_proj2.vs()[0:10])
+        print()
 
+        ###### ***** EVALUATION ***** ##########################
+        df_test_k_pos = self.df_test_k[self.df_test_k.ACTION == 1]
 
-        ###### ***** TASK 1 ***** #####
-        df_test_k_pos = self.df_test_k[self.df_test_k.ACTION==1]
-        df_test_k_neg = self.df_test_k[self.df_test_k.ACTION==0]
+        df_users = pd.DataFrame(
+            self.df_train_k_pos[self.user_attrs+["UID"]].drop_duplicates())
+        users_ids_list = list(df_users.UID)
+        users_attrs_list = list(df_users[self.user_attrs].values)
+        users_attrs_list = [str(i).replace(" ", "") for i in users_attrs_list]
+        users_attrs_dict = dict(zip(users_ids_list, users_attrs_list))
+
+        df_test_k_neg = self.df_test_k[self.df_test_k.ACTION == 0]
+        # print(df_test_k_neg.columns)
         # FN Refinemente
-        self.fn_logs = get_FN_logs(
-            df_test_k_pos, self.user_network, self.total_rules,
-            self.rule_network_ref, self.rules_with_idx)
+        # self.fn_logs = get_FN_logs(
+        #    df_test_k_pos, self.user_network, self.total_rules,
+        #    self.rule_network_ref, self.rules_with_idx)
 
-        self.fp_logs = get_FP_logs(
-            df_test_k_neg, self.user_network, self.total_rules,
-            self.rule_network_ref, self.rules_with_idx)
+        # self.fp_logs = get_FP_logs(
+        #    df_test_k_neg, self.user_network, self.total_rules,
+        #    self.rule_network_ref, self.rules_with_idx)
 
         TP = len(df_test_k_pos) - len(self.fn_logs)
         TN = len(df_test_k_neg) - len(self.fp_logs)
@@ -659,4 +666,3 @@ class PolicyMining:
 
         print("# Rules:", len(self.total_rules))
         print("WSC:", wsc)
-
