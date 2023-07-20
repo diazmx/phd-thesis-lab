@@ -3,7 +3,7 @@ from auxiliar_functions.data_preprocessing import add_new_index
 from auxiliar_functions.network_model import build_network_model, bipartite_projection, plot_distribution_degree
 from auxiliar_functions.community_detection import sub_community_detection, add_type_commts
 from auxiliar_functions.rule_inference import frequent_resources, get_attrs_from_user_sig, get_attrs_from_user, get_attrs_from_res, attribute_value_common, evaluate_weight
-from auxiliar_functions.evaluation import get_FN_logs, get_FP_logs
+from auxiliar_functions.evaluation import get_FN_logs, get_FP_logs, get_FN_logs_refinement
 from sklearn.model_selection import StratifiedShuffleSplit
 
 import numpy as np
@@ -625,21 +625,20 @@ class PolicyMining:
         print()
 
         ###### ***** EVALUATION ***** ##########################
-        df_test_k_pos = self.df_test_k[self.df_test_k.ACTION == 1]
-
         df_users = pd.DataFrame(
             self.df_train_k_pos[self.user_attrs+["UID"]].drop_duplicates())
+        
         users_ids_list = list(df_users.UID)
         users_attrs_list = list(df_users[self.user_attrs].values)
         users_attrs_list = [str(i).replace(" ", "") for i in users_attrs_list]
         users_attrs_dict = dict(zip(users_ids_list, users_attrs_list))
-
+        
+        df_test_k_pos = self.df_test_k[self.df_test_k.ACTION == 1]
         df_test_k_neg = self.df_test_k[self.df_test_k.ACTION == 0]
-        # print(df_test_k_neg.columns)
         # FN Refinemente
-        # self.fn_logs = get_FN_logs(
-        #    df_test_k_pos, self.user_network, self.total_rules,
-        #    self.rule_network_ref, self.rules_with_idx)
+        self.fn_logs = get_FN_logs_refinement(
+            df_test_k_pos, self.user_network, self.total_rules,
+            self.rule_network_ref, self.rules_with_idx, users_attrs_dict, self.user_attrs)
 
         # self.fp_logs = get_FP_logs(
         #    df_test_k_neg, self.user_network, self.total_rules,

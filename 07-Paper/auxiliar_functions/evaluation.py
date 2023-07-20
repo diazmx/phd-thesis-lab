@@ -210,3 +210,72 @@ def get_FP_logs(data_, user_network, list_rules, rule_network, rules_dict):
             false_positives.append(row)
 
     return false_positives
+
+def get_id_from_attrs(users_attrs_values, dict_users):
+    users_attrs_values = str(users_attrs_values).replace(" ", "")
+
+    for idx, value in dict_users.items():
+        if users_attrs_values == value:
+            return idx
+        
+    return None
+        
+
+
+def get_FN_logs_refinement(data_, user_network, list_rules, rule_network, rules_dict, users_dict, user_attrs):
+    """ TEST DATA."""
+    false_positives = []
+    for i, row in data_.iterrows():
+
+        user_id = get_id_from_attrs(row[user_attrs], users_dict)
+#        user_id = row["UID"]
+        print(user_id)
+        #res_id = row["RID"]
+
+        # User exist in User network
+        if not user_id in user_network.vs["name"]:
+
+            # Identificación de la comunidad
+            copy_g = user_network.copy()
+            # Se agrega el nodo a la red
+            add_new_user_node_2(user_id, res_id, copy_g, data_)
+            node_user = copy_g.vs[-1]  # Node de usuario
+
+            # Identificar a las comunidades vecinas
+            coms_vecinas = get_comunidades_vecinas(node_user, copy_g)
+
+            # Probar la modularidad máxima
+            max_mod = 0
+            user_commty = None
+            for id_com in coms_vecinas:
+                comunidad = copy_g.vs.select(commty=id_com)
+                comunidad = copy_g.subgraph(comunidad)
+                temp_mod = modularity_evaluate(node_user, comunidad, copy_g)
+                if temp_mod > max_mod:
+                    max_mod = temp_mod
+                    user_commty = id_com
+        else:
+            user_node = user_network.vs.find(name=user_id)
+            user_commty = user_node["commty"]
+
+        list_coms_user = obtener_reglas_comundiad(user_commty, list_rules)
+        list_rules_idx = get_rule_id(list_coms_user, rules_dict)
+        list_coms_user = get_neighbors_rules(
+            list_rules_idx, rule_network, rules_dict)
+
+        denies_count = 0
+        for rule in list_coms_user:
+            # En esta parte se evalua la regla completa
+            res = True
+            for idx_r, attr_val in enumerate(rule[1]):
+                # print(idx_r, attr_val)
+                if row[attr_val[0]] != attr_val[1]:
+                    res = False
+                    break
+            if res == False:
+                denies_count += 1
+        # print("XXX-", denies_count, temp_rules_n, res)
+        if denies_count < len(list_coms_user):
+            false_positives.append(row)
+
+    return false_positives
