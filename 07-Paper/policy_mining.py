@@ -4,6 +4,8 @@ from auxiliar_functions.network_model import build_network_model, bipartite_proj
 from auxiliar_functions.community_detection import sub_community_detection, add_type_commts
 from auxiliar_functions.rule_inference import frequent_resources, get_attrs_from_user_sig, get_attrs_from_user, get_attrs_from_res, attribute_value_common, evaluate_weight
 from auxiliar_functions.evaluation import get_FN_logs, get_FP_logs, get_FN_logs_refinement
+from auxiliar_functions.refinement import generate_negative_rules
+
 from sklearn.model_selection import StratifiedShuffleSplit
 
 import numpy as np
@@ -627,25 +629,40 @@ class PolicyMining:
         ###### ***** EVALUATION ***** ##########################
         df_users = pd.DataFrame(
             self.df_train_k_pos[self.user_attrs+["UID"]].drop_duplicates())
-        
+
         users_ids_list = list(df_users.UID)
         users_attrs_list = list(df_users[self.user_attrs].values)
         users_attrs_list = [str(i).replace(" ", "") for i in users_attrs_list]
         users_attrs_dict = dict(zip(users_ids_list, users_attrs_list))
-        
+
+        df_resources = pd.DataFrame(
+            self.df_train_k_pos[self.resource_attrs+["RID"]].drop_duplicates())
+
+        res_ids_list = list(df_resources.RID)
+        res_attrs_list = list(df_resources[self.resource_attrs].values)
+        res_attrs_list = [str(i).replace(" ", "") for i in res_attrs_list]
+        res_attrs_dict = dict(zip(res_ids_list, res_attrs_list))
+
         df_test_k_pos = self.df_test_k[self.df_test_k.ACTION == 1]
         df_test_k_neg = self.df_test_k[self.df_test_k.ACTION == 0]
+
+        self.fn_logs = get_FN_logs(self.df_train_k_pos, copy_g_proj2,
+                                   self.total_rules, self.rule_network_ref, self.rules_with_idx)
         # FN Refinemente
-        self.fn_logs = get_FN_logs_refinement(
-            df_test_k_pos, self.user_network, self.total_rules,
-            self.rule_network_ref, self.rules_with_idx, users_attrs_dict, self.user_attrs)
+        # self.fn_logs = get_FN_logs_refinement(
+        #     df_test_k_pos, copy_g_proj2, self.total_rules, self.rule_network_ref,
+        #     self.rules_with_idx, users_attrs_dict, self.user_attrs,
+        #     res_attrs_dict, self.resource_attrs, self.df_train_k_pos)
 
-        # self.fp_logs = get_FP_logs(
-        #    df_test_k_neg, self.user_network, self.total_rules,
-        #    self.rule_network_ref, self.rules_with_idx)
+        self.fp_logs, rules_to_fix = get_FP_logs(
+            self.df_train_k_neg, self.user_network, self.total_rules,
+            self.rule_network_ref, self.rules_with_idx)
 
-        TP = len(df_test_k_pos) - len(self.fn_logs)
-        TN = len(df_test_k_neg) - len(self.fp_logs)
+        generate_negative_rules(
+            pd.DataFrame(self.fp_logs), rules_to_fix, len(self.list_rules))
+
+        TP = len(self.df_train_k_pos) - len(self.fn_logs)
+        TN = len(self.df_train_k_neg) - len(self.fp_logs)
 
         precision = TP / (TP + len(self.fp_logs))
 
@@ -654,9 +671,9 @@ class PolicyMining:
         fscore = 2*(precision*recall)/(precision+recall)
 
         print("FN:", len(self.fn_logs),
-              " - {:.2f}%".format((len(self.fn_logs)/len(df_test_k_pos))*100))
+              " - {:.2f}%".format((len(self.fn_logs)/len(self.df_train_k_pos))*100))
         print("FP:", len(self.fp_logs),
-              " - {:.2f}%".format((len(self.fp_logs)/len(df_test_k_neg))*100))
+              " - {:.2f}%".format((len(self.fp_logs)/len(self.df_train_k_neg))*100))
         print("Precision:", precision)
         print("Recall:", recall)
         print("F-score", fscore)
