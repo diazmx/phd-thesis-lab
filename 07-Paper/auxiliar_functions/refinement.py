@@ -1,4 +1,5 @@
 from apriori_python import apriori
+import pandas as pd
 
 
 def remove_equal_rulesX(rules):
@@ -99,8 +100,6 @@ def generate_negative_rules(neg_data, rules_to_fix, n_init_rules):
                 if idx == rule[0]:
                     rules_to_fix.append([idx, rule[1]])
 
-    print(rules_to_fix)
-
     logs_in_rules = {}
     for rule in rules_to_fix:
         for i, row in neg_data.iterrows():
@@ -111,8 +110,25 @@ def generate_negative_rules(neg_data, rules_to_fix, n_init_rules):
                     break
             if res:
                 if not rule[0] in logs_in_rules.keys():
-                    logs_in_rules[rule[0]] = [row]
+                    logs_in_rules[rule[0]] = [rule[1][1], row]
                 else:
                     logs_in_rules[rule[0]] = logs_in_rules[rule[0]] + [row]
 
-    print(logs_in_rules)
+    negative_rules = []
+
+    for rule_zip in logs_in_rules.items():
+        # Convert to DF
+        df_log_rules = pd.DataFrame(rule_zip[1][1:])
+
+        # Get the attributes in the rule
+        rule_attrs = ["UID", "RID"]
+        for tuple_ in rule_zip[1][0]:
+            rule_attrs.append(tuple_[0])
+
+        # Remove attrs columns in the rule
+        df_log_rules = df_log_rules.drop(columns=rule_attrs)
+
+        tuples_to_add = attribute_value_common(data_=df_log_rules)
+        negative_rules.append(rule_zip[1][0]+tuples_to_add)
+    return negative_rules
+

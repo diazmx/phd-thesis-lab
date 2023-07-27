@@ -3,7 +3,7 @@ from auxiliar_functions.data_preprocessing import add_new_index
 from auxiliar_functions.network_model import build_network_model, bipartite_projection, plot_distribution_degree
 from auxiliar_functions.community_detection import sub_community_detection, add_type_commts
 from auxiliar_functions.rule_inference import frequent_resources, get_attrs_from_user_sig, get_attrs_from_user, get_attrs_from_res, attribute_value_common, evaluate_weight
-from auxiliar_functions.evaluation import get_FN_logs, get_FP_logs, get_FN_logs_refinement
+from auxiliar_functions.evaluation import get_FN_logs, get_FP_logs, get_FP_logs_ref
 from auxiliar_functions.refinement import generate_negative_rules
 
 from sklearn.model_selection import StratifiedShuffleSplit
@@ -658,8 +658,12 @@ class PolicyMining:
             self.df_train_k_neg, self.user_network, self.total_rules,
             self.rule_network_ref, self.rules_with_idx)
 
-        generate_negative_rules(
+        neg_rules = generate_negative_rules(
             pd.DataFrame(self.fp_logs), rules_to_fix, len(self.list_rules))
+
+        self.fp_logs = get_FP_logs_ref(
+            self.df_train_k_neg, self.user_network, self.total_rules,
+            self.rule_network_ref, self.rules_with_idx, neg_rules)
 
         TP = len(self.df_train_k_pos) - len(self.fn_logs)
         TN = len(self.df_train_k_neg) - len(self.fp_logs)
