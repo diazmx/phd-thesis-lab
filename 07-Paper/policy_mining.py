@@ -3,7 +3,7 @@ from auxiliar_functions.data_preprocessing import add_new_index
 from auxiliar_functions.network_model import build_network_model, bipartite_projection, plot_distribution_degree
 from auxiliar_functions.community_detection import sub_community_detection, add_type_commts
 from auxiliar_functions.rule_inference import frequent_resources, get_attrs_from_user_sig, get_attrs_from_user, get_attrs_from_res, attribute_value_common, evaluate_weight
-from auxiliar_functions.evaluation import get_FN_logs, get_FP_logs, get_FP_logs_ref
+from auxiliar_functions.evaluation import get_FN_logs, get_FP_logs, get_FP_logs_ref, get_FN_logs_ref
 from auxiliar_functions.refinement import generate_negative_rules
 
 from sklearn.model_selection import StratifiedShuffleSplit
