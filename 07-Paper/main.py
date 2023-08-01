@@ -20,7 +20,7 @@ elif NAME_DATASET == "HC":
     USER_ATTRS = ['role', 'specialty', 'team', 'uward', 'agentfor']
     RESOURCE_ATTRS = ['type', 'patient', 'treatingteam',
                       'oward', 'author', 'topic']
-    th_rule_sim = 3
+    th_rule_sim = 1
 
 elif NAME_DATASET == "CAV":
     FILE_NAME = "../00-Data/CAV.csv"
