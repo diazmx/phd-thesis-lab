@@ -18,6 +18,8 @@ class PolicyMining:
         self.name_ds = name_dataset
         self.user_attrs = user_attrs
         self.resource_attrs = resource_attrs
+        self.users_dict = None
+
         print("File loaded! \n")
 
         cross_validation_settings = {
@@ -72,7 +74,7 @@ class PolicyMining:
             ###### ***** TASK 2 ***** #####
             # Converting continuous values to categorical values.
             print("TASK 2: Done!\n")  # Not applicable
-            self.df_train_k = add_new_index(
+            self.df_train_k, self.users_dict = add_new_index(
                 self.df_train_k, self.user_attrs, type="U")
 
             ###### ***** TASK 3 ***** #####
@@ -245,7 +247,7 @@ class PolicyMining:
 
         ###### ***** TASK 2 ***** #####
         # User network 3
-        self.user_network = bipartite_projection(self.bip_network, 0)
+        self.user_network = bipartite_projection(self.bip_network, self.user_attrs, self.users_dict, 0)
 
         # Complex Network Analysis
         # avg_degree = sum(self.user_network.degree()) / \

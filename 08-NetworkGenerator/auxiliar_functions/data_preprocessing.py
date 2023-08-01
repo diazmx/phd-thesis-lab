@@ -12,4 +12,4 @@ def add_new_index(data, attrs, type="U"):
         key_idx = str(log)
         list_usr_idx.append(user_ids_dict[key_idx])
     data[type+"ID"] = list_usr_idx
-    return data
+    return data, user_ids_dict
