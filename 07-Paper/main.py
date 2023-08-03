@@ -13,7 +13,7 @@ if NAME_DATASET == "AMZ":
     USER_ATTRS = ["MGR_ID", "ROLE_ROLLUP_1", "ROLE_ROLLUP_2", "ROLE_DEPTNAME",
                   "ROLE_TITLE", "ROLE_FAMILY_DESC", "ROLE_FAMILY", "ROLE_CODE"]
     RESOURCE_ATTRS = ["RID"]
-    th_rule_sim = 1
+    th_rule_sim = 0.5
 
 elif NAME_DATASET == "HC":
     FILE_NAME = "../00-Data/HC-AccessLog.csv"
