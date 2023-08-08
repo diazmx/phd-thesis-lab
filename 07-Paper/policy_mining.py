@@ -1,4 +1,5 @@
 import networkx as nx
+import sys
 from auxiliar_functions.data_preprocessing import add_new_index
 from auxiliar_functions.network_model import build_network_model, bipartite_projection, plot_distribution_degree
 from auxiliar_functions.community_detection import sub_community_detection, add_type_commts
@@ -228,6 +229,7 @@ class PolicyMining:
             print(self.name_ds)
         else:
             print("Invalid dataset:", self.name_ds)
+            sys.exit()
 
         self.n_users = len(self.df_train_k.UID.drop_duplicates())
         self.n_rsrcs = len(self.df_train_k.RID.drop_duplicates())
@@ -250,21 +252,21 @@ class PolicyMining:
         self.user_network = bipartite_projection(self.bip_network, 0)
 
         # Complex Network Analysis
-        # avg_degree = sum(self.user_network.degree()) / \
-        #     self.user_network.vcount()
-        # print("\nNetwork Analysis")
-        # print("- Avg. degree", "{:.4f}".format(avg_degree))
+        avg_degree = sum(self.user_network.degree()) / \
+            self.user_network.vcount()
+        print("\nNetwork Analysis")
+        print("- Avg. degree", "{:.4f}".format(avg_degree))
 
-        # print("- Density:", "{:.4f}".format(self.user_network.density()))
+        print("- Density:", "{:.4f}".format(self.user_network.density()))
 
-        # cc = self.user_network.transitivity_avglocal_undirected()
-        # print("- Clustering Coefficient:", "{:.4f}".format(cc))
+        cc = self.user_network.transitivity_avglocal_undirected()
+        print("- Clustering Coefficient:", "{:.4f}".format(cc))
 
-        # L = self.user_network.average_path_length()
-        # print("- Average Path Length :", "{:.4f}".format(L))
+        L = self.user_network.average_path_length()
+        print("- Average Path Length :", "{:.4f}".format(L))
 
-        # plot_distribution_degree(self.user_network, self.name_ds)
-        # print("TASK 2: Done!\n")
+        plot_distribution_degree(self.user_network, self.name_ds)
+        print("TASK 2: Done!\n")
 
     def community_detection(self):
         print("\n###############################")
@@ -291,12 +293,11 @@ class PolicyMining:
 
         ###### ***** TASK 2 ***** #####
         # Community calssification
-        # Obtener el máximo valor de recursos en el total de comunidades
         n_res_in_comms = [len(i[1]) for i in dict_commts.values()]
         max_n_res = max(n_res_in_comms)
         # print("Comunidad con # mayor recursos", max_n_res)
 
-        # Umbrales para la clasificación de comunidades
+        # Sparse and Med Thresholds
         big_threshold = int(0.50 * max_n_res)
         med_threshold = int(0.25 * max_n_res)
         print("Big Threshold: ", big_threshold,
@@ -418,17 +419,18 @@ class PolicyMining:
         print("#############\n")
 
         ###### ***** TASK 1 ***** #####
-        # FN Refinemente
+        # Get False Negative Set
         self.fn_logs = get_FN_logs(
             self.df_train_k_pos, self.user_network, self.list_rules,
             self.rule_network, self.rules_with_idx)
 
+        # Get False Positive Set
         self.fp_logs = get_FP_logs(
             self.df_train_k_neg, self.user_network, self.list_rules,
             self.rule_network, self.rules_with_idx)
 
         TP = len(self.df_train_k_pos) - len(self.fn_logs)
-        # TN = len(self.df_train_k_neg) - len(self.fp_logs)
+        TN = len(self.df_train_k_neg) - len(self.fp_logs)
 
         precision = TP / (TP + len(self.fp_logs))
 
@@ -444,6 +446,7 @@ class PolicyMining:
         print("Recall:", recall)
         print("F-score", fscore)
 
+        # computing Weighted Complexity Score (WSC)
         wsc = sum([len(rule[1]) for rule in self.list_rules])
 
         print("# Rules:", len(self.list_rules))
@@ -466,7 +469,7 @@ class PolicyMining:
         # User network 3
         self.user_network_ref = bipartite_projection(self.bip_network_ref, 0)
 
-        ###### ***** TASK 1 ***** #####
+        ###### ***** TASK 3 ***** #####
         # Community detection
         partition_ref = self.user_network_ref.community_multilevel(
             weights=self.user_network_ref.es()["weight"])
@@ -484,14 +487,11 @@ class PolicyMining:
         dict_commts_ref = sub_community_detection(
             self.user_network_ref, 0.5, len(self.rule_network))
 
-        ###### ***** TASK 2 ***** #####
+        ###### ***** TASK 4 ***** #####
         # Community calssification
-        # Obtener el máximo valor de recursos en el total de comunidades
         n_res_in_comms = [len(i[1]) for i in dict_commts_ref.values()]
         max_n_res = max(n_res_in_comms)
-        # print("Comunidad con # mayor recursos", max_n_res)
 
-        # Umbrales para la clasificación de comunidades
         big_threshold = int(0.50 * max_n_res)
         med_threshold = int(0.25 * max_n_res)
         print("Big Threshold: ", big_threshold,
@@ -648,11 +648,6 @@ class PolicyMining:
 
         self.fn_logs = get_FN_logs(self.df_train_k_pos, copy_g_proj2,
                                    self.total_rules, self.rule_network_ref, self.rules_with_idx)
-        # FN Refinemente
-        # self.fn_logs = get_FN_logs_refinement(
-        #     df_test_k_pos, copy_g_proj2, self.total_rules, self.rule_network_ref,
-        #     self.rules_with_idx, users_attrs_dict, self.user_attrs,
-        #     res_attrs_dict, self.resource_attrs, self.df_train_k_pos)
 
         self.fp_logs, rules_to_fix = get_FP_logs(
             self.df_train_k_neg, self.user_network, self.total_rules,
