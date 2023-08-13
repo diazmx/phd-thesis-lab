@@ -226,7 +226,58 @@ class PolicyMining:
             print("TASK 4: Done!\n")
 
         elif self.name_ds == 'CAV':
-            print(self.name_ds)
+
+            self.df_train_k = self.df_train_k[['ACTION'] + self.user_attrs +
+                                              self.resource_attrs]
+            # Change string values to numerical
+            mapping = {'system': 10101, 'human': 10201,
+                       'human and system': 10301}  # Control
+            self.df_train_k["control"] = self.df_train_k["control"].replace(
+                mapping)
+            mapping = {'system': 20102, 'human': 20202}  # monitoring
+            self.df_train_k["monitoring"] = self.df_train_k["monitoring"].replace(
+                mapping)
+            mapping = {'system': 30103, 'human': 30203}  # fallbacj
+            self.df_train_k["fallback"] = self.df_train_k["fallback"].replace(
+                mapping)
+            mapping = {0: 40004, 1: 40104, 2: 40204,
+                       3: 40304, 4: 40404, 5: 40504}
+            self.df_train_k["driving_task_loa"] = self.df_train_k["driving_task_loa"].replace(
+                mapping)
+            mapping = {0: 50005, 1: 50105, 2: 50205,
+                       3: 50305, 4: 50405, 5: 50505}
+            self.df_train_k["vehicle_loa"] = self.df_train_k["vehicle_loa"].replace(
+                mapping)
+            mapping = {0: 60006, 1: 60106, 2: 60206,
+                       3: 60306, 4: 60406, 5: 60506}
+            self.df_train_k["region_loa"] = self.df_train_k["region_loa"].replace(
+                mapping)
+
+            self.df_train_k = add_new_index(
+                self.df_train_k, self.user_attrs, type="U")
+            self.df_train_k = add_new_index(
+                self.df_train_k, self.resource_attrs, type="R")
+            print("\nTASK 1: Done!\n")  #
+
+            ###### ***** TASK 2 ***** #####
+            # Converting continuous values to categorical values.
+            print("TASK 2: Done!\n")  # Not applicable
+
+            ###### ***** TASK 3 ***** #####
+            # Removing duplicated access requests.
+            self.df_train_k_pos = self.df_train_k[self.df_train_k.ACTION == 1]
+            self.df_train_k_neg = self.df_train_k[self.df_train_k.ACTION == 0]
+
+            self.df_train_k_pos = self.df_train_k_pos[self.df_train_k_pos.columns[1:]].drop_duplicates(
+            )
+            self.df_train_k_neg = self.df_train_k_neg[self.df_train_k_neg.columns[1:]].drop_duplicates(
+            )
+            print("# (+) access requests:", len(self.df_train_k_pos),
+                  " %: {:.2f}".format((len(self.df_train_k_pos)/len(self.df_train_k))*100))
+            print("# (-) access requests:", len(self.df_train_k_neg),
+                  " %: {:.2f}".format((len(self.df_train_k_neg)/len(self.df_train_k))*100))
+            print("TASK 3: Done!\n")
+
         else:
             print("Invalid dataset:", self.name_ds)
             sys.exit()

@@ -24,8 +24,8 @@ elif NAME_DATASET == "HC":
 
 elif NAME_DATASET == "CAV":
     FILE_NAME = "../00-Data/cav_policies.csv"
-    USER_ATTRS = ["monitoring", "fallback",
-                  "weather", "visibility", "traffic_congestion"]
+    USER_ATTRS = ["control", "monitoring", "fallback", "weather", "visibility",
+                  "traffic_congestion"]
     RESOURCE_ATTRS = ["driving_task_loa", "vehicle_loa", "region_loa"]
     th_rule_sim = 1
 else:
