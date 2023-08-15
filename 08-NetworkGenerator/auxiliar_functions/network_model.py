@@ -90,7 +90,7 @@ def get_edge_weight(i_node, j_node):
 # END get_edge_weight
 
 
-def bipartite_projection(biparte_network, user_dict, user_attrs, node_type=0):
+def bipartite_projection(biparte_network, node_type=0):
     """
     Generate a monopartite network from bipartite network.
 
@@ -140,19 +140,6 @@ def bipartite_projection(biparte_network, user_dict, user_attrs, node_type=0):
         rsrcs = biparte_network.vs.find(name=u_nodes["name"]).neighbors()
         rsrcs = [r_node["name"] for r_node in rsrcs]
         u_nodes["rsrcs"] = rsrcs
-
-        data_user = user_dict[u_nodes["name"]]
-        u_nodes[user_attrs[0]] = data_user[0]
-        u_nodes[user_attrs[1]] = data_user[1]
-        u_nodes[user_attrs[2]] = data_user[2]
-        u_nodes[user_attrs[3]] = data_user[3]
-        u_nodes[user_attrs[4]] = data_user[4]
-        u_nodes[user_attrs[5]] = data_user[5]
-        u_nodes[user_attrs[6]] = data_user[6]
-        u_nodes[user_attrs[7]] = data_user[7]
-        #user_["cluster"] = node_user_net["cluster"]
-    #user_["tipoC"] = node_user_net["tipoCom"]
-
 
     print("User Network builded!")
     print(g.summary())

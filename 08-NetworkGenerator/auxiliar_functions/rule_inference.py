@@ -91,18 +91,17 @@ def attribute_value_common(data_):
     init_Conf = 0.9
     rules = []
     while len(rules) == 0:
-        # print("Sup", init_Sup, "  Conf", init_Conf)
+        print("Sup", init_Sup, "  Conf", init_Conf)
         _, rules = apriori(data_.values.tolist(), minSup=init_Sup,
                            minConf=init_Conf)  # Apply apriori
         init_Sup -= 0.1
         init_Conf -= 0.1
 
-        if init_Sup < 0:
-            rules = [data_.values[0][:-1], [], [1]]
+        if init_Sup < 0.01:
+            rules = [[set(data_.values[0][:-1]), {}, 1]]
             print(rules)
             break
-
-    # print(rules)
+    
     rules = [list(r[0])+list(r[1])+[r[-1]] for r in rules]
     rules = remove_equal_rulesX(rules)
     rules = [list(r) for r in rules]
