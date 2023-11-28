@@ -79,11 +79,17 @@ class PolicyMining:
             # Removing duplicated access requests.
             self.df_train_k_pos = self.df_train_k[self.df_train_k.ACTION == 1]
             self.df_train_k_neg = self.df_train_k[self.df_train_k.ACTION == 0]
+            print("BEFORE")
+            print("# (+) access requests:", len(self.df_train_k_pos),
+                  " %: {:.2f}".format((len(self.df_train_k_pos)/len(self.df_train_k))*100))
+            print("# (-) access requests:", len(self.df_train_k_neg),
+                  " %: {:.2f}".format((len(self.df_train_k_neg)/len(self.df_train_k))*100))
             # print(self.df_train_k_pos.columns[1:])
             self.df_train_k_pos = self.df_train_k_pos[self.df_train_k_pos.columns[1:]].drop_duplicates(
             )
             self.df_train_k_neg = self.df_train_k_neg[self.df_train_k_neg.columns[1:]].drop_duplicates(
             )
+            print("AFTER")
             print("# (+) access requests:", len(self.df_train_k_pos),
                   " %: {:.2f}".format((len(self.df_train_k_pos)/len(self.df_train_k))*100))
             print("# (-) access requests:", len(self.df_train_k_neg),
@@ -92,17 +98,17 @@ class PolicyMining:
 
             ###### ***** TASK 4 ***** #####
             # Selecting the most used resources.
-            n1 = 0
-            n2 = 149
-            top_list = self.df_train_k_pos.RID.value_counts()[:len(
-                self.df_train_k_pos.RID.drop_duplicates())].index.tolist()
-            # Filter the interval between n1 and n2
-            top_list = top_list[n1:n2+1]
-            boolean_series = self.df_train_k_pos.RID.isin(top_list)
-            self.df_train_k_pos = self.df_train_k_pos[boolean_series]
-            bolean_series = self.df_train_k_neg.RID.isin(top_list)
-            self.df_train_k_neg = self.df_train_k_neg[bolean_series]
-            print("TASK 4: Done!\n")
+            # n1 = 0
+            # n2 = 149
+            # top_list = self.df_train_k_pos.RID.value_counts()[:len(
+            #     self.df_train_k_pos.RID.drop_duplicates())].index.tolist()
+            # # Filter the interval between n1 and n2
+            # top_list = top_list[n1:n2+1]
+            # boolean_series = self.df_train_k_pos.RID.isin(top_list)
+            # self.df_train_k_pos = self.df_train_k_pos[boolean_series]
+            # bolean_series = self.df_train_k_neg.RID.isin(top_list)
+            # self.df_train_k_neg = self.df_train_k_neg[bolean_series]
+            # print("TASK 4: Done!\n")
 
         elif self.name_ds == 'HC':
             ###### ***** TASK 1 ***** #####
@@ -196,6 +202,12 @@ class PolicyMining:
             # Removing duplicated access requests.
             self.df_train_k_pos = self.df_train_k[self.df_train_k.ACTION == 1]
             self.df_train_k_neg = self.df_train_k[self.df_train_k.ACTION == 0]
+
+            print("BEFORE")
+            print("# (+) access requests:", len(self.df_train_k_pos),
+                  " %: {:.2f}".format((len(self.df_train_k_pos)/len(self.df_train_k))*100))
+            print("# (-) access requests:", len(self.df_train_k_neg),
+                  " %: {:.2f}".format((len(self.df_train_k_neg)/len(self.df_train_k))*100))
 
             self.df_train_k_pos = self.df_train_k_pos[self.df_train_k_pos.columns[1:]].drop_duplicates(
             )
