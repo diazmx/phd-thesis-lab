@@ -8,22 +8,26 @@ import numpy as np
 file_name = "../data/IoT-expo-universal.csv"
 acc_log = pd.read_csv(file_name)
 acc_log = acc_log[acc_log.columns[1:]]
-acc_log["rname"] = acc_log["rname"] + max(acc_log.uname.unique()) + 1
 
+# Change the index of resource to avoid the same identificator in nodes
+acc_log["rname"] = acc_log["rname"] + max(acc_log.uname.unique()) + 1
 print("Done!")
 
+# User set
 user_attributes = ["role", "age", "health", "uname"]
 users = acc_log[user_attributes].drop_duplicates()
 users = users.reset_index(drop=True)
 print("|U| =", len(users))
 # users.head()
 
+# Resource set
 res_attributes = ["area", "mode", "temperature", "lockstatus", "rname"]
 resrs = acc_log[res_attributes].drop_duplicates()
 resrs = resrs.reset_index(drop=True)
 print("|R| =", len(resrs))
 #resrs.head()
 
+# Edge set
 edges_attributes = ["uname", "rname", "ACTION"]
 edges = acc_log[edges_attributes].drop_duplicates()
 edges = edges.reset_index(drop=True)
@@ -34,10 +38,14 @@ print("|E| =", len(edges))
 ### Create a graph
 
 # Iteration over tuples in the dataframe
-tuple_list = edges[["uname", "rname", "ACTION"]].itertuples(index=False)
+# tuple_list = edges[["uname", "rname", "ACTION"]].itertuples(index=False)
+positive_acc_log = acc_log[acc_log["ACTION"]==1]
+to_plot = positive_acc_log.value_counts(["uname", "rname"], normalize=False)
+to_plot_dict = to_plot.reset_index().rename(columns={0: 'counts'}).to_dict(orient='records')
+tuple_list = pd.DataFrame(to_plot_dict).itertuples(index=False)
 
 # Using the TupleList method to build the network
-bip_network = ig.Graph.TupleList(tuple_list, directed=False, edge_attrs=["ACTION"])
+bip_network = ig.Graph.TupleList(tuple_list, directed=False, weights=True)
 
 
 print(bip_network.summary())
