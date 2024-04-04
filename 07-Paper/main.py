@@ -28,6 +28,14 @@ elif NAME_DATASET == "CAV":
                   "traffic_congestion"]
     RESOURCE_ATTRS = ["driving_task_loa", "vehicle_loa", "region_loa"]
     th_rule_sim = 1
+
+elif NAME_DATASET == "IoT":
+    FILE_NAME = "../00-Data/IoT.csv"
+    USER_ATTRS = ["control", "monitoring", "fallback", "weather", "visibility",
+                  "traffic_congestion"]
+    RESOURCE_ATTRS = ["driving_task_loa", "vehicle_loa", "region_loa"]
+    th_rule_sim = 1
+    
 else:
     print("Invalid Dataset")
     sys.exit()
