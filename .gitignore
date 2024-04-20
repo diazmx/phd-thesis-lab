@@ -3,6 +3,7 @@
 *.gml
 *.gephi
 *.pdf
+*.graphml
 
 # Output files
 output-files/
