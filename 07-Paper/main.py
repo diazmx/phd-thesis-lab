@@ -30,10 +30,9 @@ elif NAME_DATASET == "CAV":
     th_rule_sim = 1
 
 elif NAME_DATASET == "IoT":
-    FILE_NAME = "../00-Data/IoT.csv"
-    USER_ATTRS = ["control", "monitoring", "fallback", "weather", "visibility",
-                  "traffic_congestion"]
-    RESOURCE_ATTRS = ["driving_task_loa", "vehicle_loa", "region_loa"]
+    FILE_NAME = "../00-Data/0-IoT-universal.csv"
+    USER_ATTRS = ["role", "age", "health"]
+    RESOURCE_ATTRS = ["type", "area", "mode", "temperature", "lockstatus"]
     th_rule_sim = 1
     
 else:
