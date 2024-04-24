@@ -39,7 +39,7 @@ def add_new_user_node_2(user, resource, graph_, data):
     """Add new vertex in the graph based on share resource."""
     # Se extraen los usuarios que tienen el mismo recurso de acceso
     users_same_resource = set(
-        data[data["RID"] == resource].drop_duplicates()["UID"].to_list())
+        data[data["rname"] == resource].drop_duplicates()["uname"].to_list())
     # print(users_same_resource)
     usuaris_grafo = set([i for i in graph_.vs()["name"]])
     users_same_resource = list(users_same_resource.intersection(usuaris_grafo))
@@ -68,7 +68,7 @@ def get_FN_logs(data_, user_network, list_rules, rule_network, rules_dict):
     """TRAIN DATA."""
     false_neg = []
     for i, row in data_.iterrows():
-        user_id = row["UID"]
+        user_id = row["uname"]
 
         user_node = user_network.vs.find(name=user_id)
         user_commty = user_node["commty"]
@@ -161,8 +161,8 @@ def get_FP_logs(data_, user_network, list_rules, rule_network, rules_dict):
     false_positives = []
     rules_to_fix = []
     for i, row in data_.iterrows():
-        user_id = row["UID"]
-        res_id = row["RID"]
+        user_id = row["uname"]
+        res_id = row["rname"]
 
         # User exist in User network
         if not user_id in user_network.vs["name"]:
@@ -231,8 +231,8 @@ def get_FP_logs_ref(data_, user_network, list_rules, rule_network, rules_dict, n
     false_positives = []
     rules_to_fix = []
     for i, row in data_.iterrows():
-        user_id = row["UID"]
-        res_id = row["RID"]
+        user_id = row["uname"]
+        res_id = row["rname"]
 
         # User exist in User network
         if not user_id in user_network.vs["name"]:
@@ -300,7 +300,7 @@ def get_FN_logs_ref(data_, user_network, list_rules, rule_network, rules_dict):
     """TRAIN DATA."""
     false_neg = []
     for i, row in data_.iterrows():
-        user_id = row["UID"]
+        user_id = row["uname"]
 
         #user_node = user_network.vs.find(name=user_id)
         #user_commty = user_node["commty"]
