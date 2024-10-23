@@ -1,0 +1,1 @@
+Tiempo para 1000000 aristas: 339.16948223114014 segundos

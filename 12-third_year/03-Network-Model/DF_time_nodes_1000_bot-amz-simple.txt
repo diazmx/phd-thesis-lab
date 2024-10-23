@@ -1,0 +1,1 @@
+Tiempo para 1000 nodos: 16.9387 segundos
