@@ -13,18 +13,19 @@ from netbone.filters import threshold_filter
 from netbone.measures import node_fraction, edge_fraction, average_degree, reachability, weight_fraction, density
 from auxiliar_projections import apply_projection, multiply_weigt, remove_zeros
 from time import time
-from noise_corr_prof_igraph_3 import noise_corrected
+from noise_corr_prof_igraph_3 import noise_corrected as nc1
+from bb_nc_filter import noise_corrected as nc2
 from diparity_prof_igraph import disparity
 #from noisecorr_prof import noise_corrected
 #from diparity_prof import disparity
 
 ##### **** Variables selection **** #####
 
-dataset = "HC"
-filename = "../data/"+dataset+"/binet-"+dataset+"-Rw.gml"
-#filename = "../00-data/amz/binet-AMZ-new.gml"
+dataset = "AMZ"
+#filename = "../data/"+dataset+"/binet-"+dataset+"-Rw.gml"
+filename = "../00-data/amz/binet-AMZ-new.gml"
 #filename = "imdb/user-movie.graphml"
-projection_name = "resall" 
+projection_name = "simple" 
 
 # simple weights vector master hyperbolic resall
 threshold_nodes = 2
@@ -98,10 +99,17 @@ print("TOP DF - time: %.10f seconds." % b)
 
 # Noise Corrected
 a = time()
-bb_nc = noise_corrected(g_toy)
+bb_nc = nc1(g_toy)
 #bb_nc = nb.noise_corrected(g_toy)
 b = time() - a
-print("TOP NC - time: %.10f seconds." % b)
+print("TOP NC OLD - time: %.10f seconds." % b)
+
+# Noise Corrected
+a = time()
+filtered_graphs = nc2(g_toy)
+#bb_nc = nb.noise_corrected(g_toy)
+b = time() - a
+print("TOP NC NEW - time: %.10f seconds." % b)
 
 # Convert to networkx graph
 g_toy = g_toy.to_networkx()
@@ -114,12 +122,16 @@ for i_ in alpha:
         print("TOP-DF-"+str(i_))
         print()
 print()
+
+
+print("NUEVO")
+for alpha__, g__ in filtered_graphs.items():
+    print(f"Grafo filtrado con alpha={alpha__}: {g__.summary()}")
 print("================================")
 print()
 
-
 for i_ in alpha:
-    print("*** ### --- Alpha NC =", i_, " --- ### ***")
+    print("*** ### --- Alpha NC OLD =", i_, " --- ### ***")
     backbone = threshold_filter(bb_nc, i_)
     print(backbone)
     if len(backbone.nodes)>len(user_nodes)/threshold_nodes and len(backbone.edges) > 0:
@@ -179,7 +191,7 @@ print("TOP DF - time: %.10f seconds." % b)
 
 # Noise Corrected
 a = time()
-bb_nc = noise_corrected(g_toy)
+bb_nc = nc1(g_toy)
 #bb_nc = nb.noise_corrected(g_toy)
 b = time() - a
 print("TOP NC - time: %.10f seconds." % b)

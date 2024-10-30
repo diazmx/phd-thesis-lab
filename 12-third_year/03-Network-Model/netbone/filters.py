@@ -1,7 +1,8 @@
 import math
-
+import cProfile
 import networkx as nx
 from netbone.utils.utils import edge_properties
+import pstats
 
 
 def boolean_filter(backbone, narrate=True, value=[]):
@@ -19,6 +20,7 @@ def boolean_filter(backbone, narrate=True, value=[]):
 
 def threshold_filter(backbone, value, narrate=True, secondary_property='weight', secondary_property_ascending=False,
                      **kwargs):
+
     data = backbone.to_dataframe()
     property_name = backbone.property_name
     filter_by = [property_name]
@@ -29,8 +31,7 @@ def threshold_filter(backbone, value, narrate=True, secondary_property='weight',
         ascending.append(secondary_property_ascending)
 
     if threshold_filter in backbone.compatible_filters():
-        data = data.sort_values(by=filter_by,
-                                ascending=ascending)
+        data = data.sort_values(by=filter_by, ascending=ascending)
 
         if narrate:
             backbone.narrate()
