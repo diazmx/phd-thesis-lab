@@ -49,7 +49,11 @@ def noise_corrected(data, alpha_values=[0.05, 0.1, 0.15, 0.2]):
         # Crear el nuevo grafo con las aristas filtradas
         g_filtered = ig.Graph(edges=filtered_edges,
                               edge_attrs={"weight": filtered_weights})
-
+        
+        # Copiar los atributos de los nodos del grafo original al grafo filtrado
+        for attr in data.vs.attributes():
+            g_filtered.vs[attr] = data.vs[attr]
+            
         # Almacenar el grafo filtrado en el diccionario
         filtered_graphs[alpha] = g_filtered
 
@@ -60,7 +64,6 @@ def noise_corrected(data, alpha_values=[0.05, 0.1, 0.15, 0.2]):
 def disparity(data, alpha_values=[0.05, 0.1, 0.15, 0.2]):
     
     strength = np.array(data.strength(weights="weight")) # Extraer fuerza de cada nodo
-    k_degree = np.array(data.degree()) # Extraer el grado de cada nodo
     
     weights = np.array(data.es["weight"])  # Extraer los pesos de las aristas
 
@@ -99,6 +102,10 @@ def disparity(data, alpha_values=[0.05, 0.1, 0.15, 0.2]):
         # Crear el nuevo grafo con las aristas filtradas
         g_filtered = ig.Graph(edges=filtered_edges,
                               edge_attrs={"weight": filtered_weights})
+        
+        # Copiar los atributos de los nodos del grafo original al grafo filtrado
+        for attr in data.vs.attributes():
+            g_filtered.vs[attr] = data.vs[attr]
 
         # Almacenar el grafo filtrado en el diccionario
         filtered_graphs[alpha] = g_filtered

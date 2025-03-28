@@ -30,12 +30,12 @@ def simple_projection(bigraph, typen=True):
         return bigraph.bipartite_projection(which=typen)
 
 def weights_projection(bigraph, usr_size, typen=True):
-    if typen:
+    if not typen:
         usr_graph = bigraph.bipartite_projection(which=typen)
         
         weights = []
         for edge in usr_graph.es:
-            # Nodos vecinos en común.
+            # Nodos vecinos en común.            
             common_neis = set(bigraph.neighbors(edge.source)) & set(bigraph.neighbors(edge.target))
             temp_sum = 0
             for node in common_neis: # Suma de cada arista con los nodos vecinos en común
@@ -111,7 +111,7 @@ def vectorized_projection(bigraph, usr_size, measure="euclidean", typen=True):
 
 def maestria_projection(bigraph, usr_size, typen=True):
     
-    if typen:
+    if not typen:
         usr_graph = bigraph.bipartite_projection(which=typen)
         weights = []
         for edge in usr_graph.es:
@@ -127,7 +127,7 @@ def maestria_projection(bigraph, usr_size, typen=True):
         res_graph = bigraph.bipartite_projection(which=typen)
         weights = []
         for edge in res_graph.es:
-            temp_weight = 0
+            temp_weight = 0 
             node_source_neis = set(bigraph.neighbors(edge.source+usr_size))
             node_target_neis = set(bigraph.neighbors(edge.target+usr_size))
             temp_weight = len(node_source_neis & node_target_neis) ** 2
@@ -174,7 +174,7 @@ def maestria_projection_weights(bigraph):
 
 def hyperbolic_projection(bigraph, usr_size, typen=True):
     
-    if typen:
+    if not typen:
         usr_graph = bigraph.bipartite_projection(which=typen)
         weights = []
         for edge in usr_graph.es:
@@ -243,10 +243,10 @@ def resource_allocation_projection(bigraph, usr_size, typen=True):
         for edge in res_graph.es:
             temp_weight_u = 0
             temp_weight_v = 0
-            common_neis = set(bigraph.neighbors(edge.source+usr_size)) & set(bigraph.neighbors(edge.target+usr_size))
+            common_neis = set(bigraph.neighbors(edge.source)) & set(bigraph.neighbors(edge.target))
             for z in common_neis:
-                temp_weight_u += (1 / (bigraph.vs[z].degree()*bigraph.vs[edge.source+usr_size].degree()))
-                temp_weight_v += (1 / (bigraph.vs[z].degree()*bigraph.vs[edge.target+usr_size].degree()))
+                temp_weight_u += (1 / (bigraph.vs[z].degree()*bigraph.vs[edge.source].degree()))
+                temp_weight_v += (1 / (bigraph.vs[z].degree()*bigraph.vs[edge.target].degree()))
             temp_weight = (temp_weight_u + temp_weight_v) / 2
             weights.append(temp_weight)
         res_graph.es["weight"] = weights
