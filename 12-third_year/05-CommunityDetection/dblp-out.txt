@@ -1,0 +1,23 @@
+04-BridgeNodes
+2025-04-02 20:33:14
+
+IGRAPH U--- 425957 1049866 -- 
++ attr: id (v)
+Graph info:
+	|V| = 425957 
+	|E| = 1049866 
+	 d  = 1.1572664617914145e-05 
+
+ === Starting Community Detection === 
+Community Detection Resumen:
+Clustering with 425957 elements and 109102 clusters
+
+Communities > 5: 211
+
+Nodes to remove: 108943
+
+Deleting nodes: Done
+
+Nodos puente 0.1088527764839887
+Comunidades strong 61
+Comunidades weak 172
