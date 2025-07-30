@@ -67,7 +67,7 @@ def weights_projection(bigraph, usr_size, typen=True):
     
 def vectorized_projection(bigraph, usr_size, measure="euclidean", typen=True):
     adj_matrix = bigraph.get_adjacency(attribute="weight")
-    if typen:
+    if not typen:
         usr_graph = bigraph.bipartite_projection(which=typen)
         weights = []
         for edge in usr_graph.es:
@@ -79,6 +79,7 @@ def vectorized_projection(bigraph, usr_size, measure="euclidean", typen=True):
             vector_target = adj_matrix[edge.target][usr_size:]
             
             temp_weight = 0
+
             if measure == "cosine": # No tocar
                 temp_weight = distance.cosine(vector_source, vector_target)
             elif measure == "hamming":
@@ -88,7 +89,6 @@ def vectorized_projection(bigraph, usr_size, measure="euclidean", typen=True):
             weights.append(temp_weight)
         usr_graph.es["weight"] = weights
         return usr_graph
-    
     else:
         res_graph = bigraph.bipartite_projection(which=typen)
         weights = []
@@ -99,6 +99,7 @@ def vectorized_projection(bigraph, usr_size, measure="euclidean", typen=True):
             vector_target = adj_matrix[edge.target+usr_size][:usr_size]
             
             temp_weight = 0
+
             if measure == "cosine":
                 temp_weight = distance.cosine(vector_source, vector_target)
             elif measure == "hamming":
@@ -108,7 +109,7 @@ def vectorized_projection(bigraph, usr_size, measure="euclidean", typen=True):
             weights.append(temp_weight)
         res_graph.es["weight"] = weights
         return res_graph
-    
+
 def jaccard_projection(bigraph, usr_size, typen=True):
 
     if not typen:
@@ -262,8 +263,8 @@ def maestria_projection(bigraph, usr_size, typen=True):
             temp_weight = 0
             node_source_neis = set(bigraph.neighbors(edge.source))
             node_target_neis = set(bigraph.neighbors(edge.target))
-            temp_weight = len(node_source_neis & node_target_neis) ** 2
-            temp_weight = temp_weight / (len(node_source_neis) * len(node_target_neis))
+            temp_weight = len(node_source_neis & node_target_neis) / 2
+            temp_weight = temp_weight * ((1/len(node_source_neis)) + (1/len(node_target_neis)))
             weights.append(temp_weight)
         usr_graph.es["weight"] = weights
         return usr_graph
@@ -274,8 +275,8 @@ def maestria_projection(bigraph, usr_size, typen=True):
             temp_weight = 0 
             node_source_neis = set(bigraph.neighbors(edge.source+usr_size))
             node_target_neis = set(bigraph.neighbors(edge.target+usr_size))
-            temp_weight = len(node_source_neis & node_target_neis) ** 2
-            temp_weight = temp_weight / (len(node_source_neis) * len(node_target_neis))
+            temp_weight = len(node_source_neis & node_target_neis) / 2
+            temp_weight = temp_weight * ((1/len(node_source_neis)) * (1/len(node_target_neis)))
             weights.append(temp_weight)
         res_graph.es["weight"] = weights    
         return res_graph
