@@ -66,7 +66,8 @@ def weights_projection(bigraph, usr_size, typen=True):
         return res_graph
     
 def vectorized_projection(bigraph, usr_size, measure="euclidean", typen=True):
-    adj_matrix = bigraph.get_adjacency(attribute="weight")
+    #adj_matrix = bigraph.get_adjacency(attribute="weight")
+    adj_matrix = bigraph.get_adjacency()
     if not typen:
         usr_graph = bigraph.bipartite_projection(which=typen)
         weights = []
