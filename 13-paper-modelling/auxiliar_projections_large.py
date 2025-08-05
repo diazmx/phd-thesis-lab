@@ -856,7 +856,7 @@ def apply_projection(bigraph, projection_name, usr_size, typenn=True):
         return jaccard_projection(bigraph, usr_size, typen=typenn)
     elif projection_name == "jaccard_w":
         return weighted_jaccard_projection(bigraph, usr_size, typen=typenn)
-    elif projection_name == "master":
+    elif projection_name == "neighs":
         return maestria_projection(bigraph, usr_size, typen=typenn)
     elif projection_name == "master_w":
         return proportional_weighted_projection(bigraph, usr_size, typen=typenn)
