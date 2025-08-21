@@ -6,7 +6,7 @@ import statistics
 import powerlaw
 import random
 import networkx as nx
-import nx_cugraph as nxcg
+#import nx_cugraph as nxcg
 from time import time
 
 def bipartite_cc_uu_prime(graph, u_id, u_prime_id):
@@ -199,14 +199,16 @@ def evaluate_solution(bip, proj, typen):
     }
     # objetivos
     f = np.array([
+        # Mismo número de nodos
         abs(x["x1"] - x["x4"]) if typen==0 else abs(x["x2"] - x["x4"]),
-        (2*x["x5"]) / (x["x4"]*(x["x4"]-1)) if x["x4"]>1 else np.inf,
-        #x["x6"],
-        1 - x["x7"],
-        abs(x["x11"] - x["x12"]),
-        abs(x["x9"] - x["x10"]),
-        x["x13"]
-    ])
+        #(2*x["x5"]) / (x["x4"]*(x["x4"]-1)) if x["x4"]>1 else np.inf,
+        # Misma densidad
+        abs(((2*x["x5"]) / (x["x4"]*(x["x4"]-1))) - x["x15"]), 
+        abs(x["x8"] - x["x7"]),  # CC
+        abs(x["x11"] - x["x12"]), # Power Law
+        abs(x["x9"] - x["x10"]), # APL
+        abs(x["x13"]-x["x16"])  # Grado Promedio
+        ])
     # restricciones g_i(x)<=0
     g = np.array([
         #f[1] - x["x3"]/(x["x1"]*x["x2"]) if x["x1"]*x["x2"]>0 else np.inf,
