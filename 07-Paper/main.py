@@ -9,14 +9,14 @@ th_rule_sim = None
 
 # Settings for each dataset
 if NAME_DATASET == "AMZ":
-    FILE_NAME = "../00-Data/train.csv"
+    FILE_NAME = "/Users/ddiaz/Documents/code/phd-thesis-lab/12-third_year/00-Data/01-AMZ/01-DistributionsCSV/AMZ-MOD.csv"
     USER_ATTRS = ["MGR_ID", "ROLE_ROLLUP_1", "ROLE_ROLLUP_2", "ROLE_DEPTNAME",
                   "ROLE_TITLE", "ROLE_FAMILY_DESC", "ROLE_FAMILY", "ROLE_CODE"]
     RESOURCE_ATTRS = ["RID"]
     th_rule_sim = 1
 
 elif NAME_DATASET == "HC":
-    FILE_NAME = "../00-Data/HC-AccessLog.csv"
+    FILE_NAME = "/Users/ddiaz/Documents/code/phd-thesis-lab/12-third_year/00-Data/02-HC/01-DistributionsCSV/HC-MOD.csv"
     USER_ATTRS = ['role', 'specialty', 'team', 'uward', 'agentfor']
     RESOURCE_ATTRS = ['type', 'patient', 'treatingteam',
                       'oward', 'author', 'topic']
@@ -30,7 +30,7 @@ elif NAME_DATASET == "CAV":
     th_rule_sim = 1
 
 elif NAME_DATASET == "IoT":
-    FILE_NAME = "../00-Data/0-IoT-universal.csv"
+    FILE_NAME = "/Users/ddiaz/Documents/code/phd-thesis-lab/12-third_year/00-Data/11-IoT/01-DistributionsCSV/IoT-Rw.csv"
     USER_ATTRS = ["role", "age", "health"]
     RESOURCE_ATTRS = ["type", "area", "mode", "temperature", "lockstatus"]
     th_rule_sim = 1

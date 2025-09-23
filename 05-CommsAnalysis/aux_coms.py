@@ -64,6 +64,54 @@ def get_all_resources_in_commty(commty_graph):
     all_resources = list(set(all_resources))
     return all_resources
 
+def sub_community_detection2(user_network, prev_partition):
+    """Get all communities including sub-community detection.
+
+    Parameters
+    ----------
+    user_network: Graph (igraph)
+        User network.
+    prev_partition: VertexClustering (igraph)
+        First communities partition. 
+    density_t: flaot
+        Density threshold to execute sub-communities. The Louvain algorithm
+        is executed one more time in communities with a density value  < 
+        `density_t`.
+
+    Returns
+    -------
+    dict_total_coms: dict
+        Dictionary with all communities. The key is the ID of the community.
+        The value is a list of two elements: (1) Community graph (igraph object)
+        and (2) a list with all the resources that the users of the community
+        access.
+
+    """
+    # Create a copy of the user_network
+    # copy_user_network = user_network
+    # Commts = Communities
+    # Commty = Community
+
+    n_commts = len(set(user_network.vs["commty"]))  # Get all previous commts
+    commty_counter = 0  # A counter to assign an ID to each commty detected
+
+    # Dictionary to store all commts detected. An example:
+    # {id_commty: [subgraph, resources list]}
+    dict_commts = {}
+
+    for id_commty in range(n_commts):  # Loop over id of previous commts
+        # Get the Graph object of the community
+        graph_commty = get_community_graph(user_network, id_commty)
+        
+        all_rescs_commty = get_all_resources_in_commty(graph_commty)
+        id_commty_str = str(commty_counter)  # Convert the id to str
+        # Add the new community to the dict
+        dict_commts[id_commty_str] = [graph_commty, all_rescs_commty]
+        # Add new ID commty to the user in user network
+        add_id_comm_to_nodes(user_network, graph_commty, id_commty_str)
+        commty_counter += 1
+
+    return dict_commts
 
 def sub_community_detection(user_network, prev_partition, density_t=0.5):
     """Get all communities including sub-community detection.
