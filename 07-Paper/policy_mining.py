@@ -6,7 +6,6 @@ from auxiliar_functions.community_detection import sub_community_detection, add_
 from auxiliar_functions.rule_inference import frequent_resources, get_attrs_from_user_sig, get_attrs_from_user, get_attrs_from_res, attribute_value_common, evaluate_weight
 from auxiliar_functions.evaluation import get_FN_logs, get_FP_logs, get_FP_logs_ref, get_FN_logs_ref
 from auxiliar_functions.refinement import generate_negative_rules
-
 from sklearn.model_selection import StratifiedShuffleSplit
 
 import numpy as np
