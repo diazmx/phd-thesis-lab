@@ -489,7 +489,7 @@ class PolicyMining:
         # print(isolated_nodes, len(isolated_nodes))
         self.rule_network.add_nodes_from(isolated_nodes)
 
-        print("Rule Network\n", nx.info(self.rule_network))
+        print("Rule Network\n", self.rule_network)
         print("TASK 2: Done!\n")
 
     def rule_inference_random(self, th_rule_sim):
@@ -594,7 +594,7 @@ class PolicyMining:
         # print(isolated_nodes, len(isolated_nodes))
         self.rule_network_random.add_nodes_from(isolated_nodes)
 
-        print("Rule Network\n", nx.info(self.rule_network_random))
+        print("Rule Network\n", self.rule_network_random)
         print("TASK 2: Done!\n")
 
     def evaluation(self):
@@ -823,7 +823,7 @@ class PolicyMining:
         # print(isolated_nodes, len(isolated_nodes))
         self.rule_network_ref.add_nodes_from(isolated_nodes)
 
-        print("Rule Network\n", nx.info(self.rule_network_ref))
+        print("Rule Network\n", self.rule_network_ref)
         print("TASK 2: Done!\n")
 
         copy_g_proj2 = self.user_network.copy()  # Copia del grafo
@@ -1055,7 +1055,7 @@ class PolicyMining:
         # print(isolated_nodes, len(isolated_nodes))
         self.rule_network_ref_random.add_nodes_from(isolated_nodes)
 
-        print("Rule Network\n", nx.info(self.rule_network_ref_random))
+        print("Rule Network\n", self.rule_network_ref_random)
         print("TASK 2: Done!\n")
 
         copy_g_proj2 = self.random_user_network.copy()  # Copia del grafo
