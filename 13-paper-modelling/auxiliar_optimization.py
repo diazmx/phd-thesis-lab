@@ -200,14 +200,14 @@ def evaluate_solution(bip, proj, typen):
     # objetivos
     f = np.array([
         # Mismo número de nodos
-        abs(x["x1"] - x["x4"]) if typen==0 else abs(x["x2"] - x["x4"]),
+        #abs(x["x1"] - x["x4"]) if typen==0 else abs(x["x2"] - x["x4"]),
         #(2*x["x5"]) / (x["x4"]*(x["x4"]-1)) if x["x4"]>1 else np.inf,
         # Misma densidad
         abs(((2*x["x5"]) / (x["x4"]*(x["x4"]-1))) - x["x15"]), 
         abs(x["x8"] - x["x7"]),  # CC
         abs(x["x11"] - x["x12"]), # Power Law
-        abs(x["x9"] - x["x10"]), # APL
-        abs(x["x13"]-x["x16"])  # Grado Promedio
+        #abs(x["x9"] - x["x10"]), # APL
+        #abs(x["x13"]-x["x16"])  # Grado Promedio
         ])
     # restricciones g_i(x)<=0
     g = np.array([
