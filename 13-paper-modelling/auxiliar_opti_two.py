@@ -203,7 +203,7 @@ def evaluate_solution(bip, proj, typen):
         #abs(x["x1"] - x["x4"]) if typen==0 else abs(x["x2"] - x["x4"]),
         #(2*x["x5"]) / (x["x4"]*(x["x4"]-1)) if x["x4"]>1 else np.inf,
         # Misma densidad
-        # abs(((2*x["x5"]) / (x["x4"]*(x["x4"]-1))) - x["x15"]), 
+        #abs(((2*x["x5"]) / (x["x4"]*(x["x4"]-1))) - x["x15"]), 
         abs(x["x8"] - x["x7"]),  # CC
         abs(x["x11"] - x["x12"]), # Power Law
         #abs(x["x9"] - x["x10"]), # APL

@@ -201,7 +201,7 @@ def evaluate_solution(bip, proj, typen):
     f = np.array([
         # Mismo número de nodos
         abs(x["x1"] - x["x4"]) if typen==0 else abs(x["x2"] - x["x4"]),
-        (2*x["x5"]) / (x["x4"]*(x["x4"]-1)) if x["x4"]>1 else np.inf,
+        #(2*x["x5"]) / (x["x4"]*(x["x4"]-1)) if x["x4"]>1 else np.inf,
         # Misma densidad
         abs(((2*x["x5"]) / (x["x4"]*(x["x4"]-1))) - x["x15"]), 
         abs(x["x8"] - x["x7"]),  # CC
