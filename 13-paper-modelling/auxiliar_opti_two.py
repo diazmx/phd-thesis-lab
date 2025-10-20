@@ -6,8 +6,55 @@ import statistics
 import powerlaw
 import random
 import networkx as nx
-#import nx_cugraph as nxcg
+import nx_cugraph as nxcg
 from time import time
+
+
+
+def average_local_bipartite_clustering_coefficient_sampled(graph, U_type_value=False, n=None, seed=None):
+    """
+    Calculates an approximate average local clustering coefficient for a set of nodes U
+    in a bipartite graph by sampling n nodes instead of using all of them.
+
+    Args:
+        graph: An igraph Graph object. Must be bipartite with a 'type' vertex attribute.
+        U_type_value: The boolean value (True/False) indicating the partition for which
+                      to calculate the average clustering coefficient.
+        n: The number of nodes to sample from the U set. If None or greater than
+           the number of available nodes, all nodes are used.
+        seed: Optional random seed for reproducibility.
+
+    Returns:
+        The approximate average local clustering coefficient for the sampled set U.
+    """
+    if not graph.is_bipartite():
+        raise ValueError("Graph must be bipartite.")
+    if "type" not in graph.vs.attributes():
+        raise ValueError("Bipartite graph must have a 'type' vertex attribute.")
+
+    # Get all vertices in set U
+    U_vertices_ids = [v.index for v in graph.vs if v["type"] == U_type_value]
+    total_U = len(U_vertices_ids)
+    if total_U == 0:
+        return 0.0
+
+    # Set seed if provided
+    if seed is not None:
+        random.seed(seed)
+
+    # If n is not specified or exceeds the available nodes, use all
+    if n is None or n >= total_U:
+        sample_vertices = U_vertices_ids
+    else:
+        sample_vertices = random.sample(U_vertices_ids, n)
+
+    # Calculate clustering for the sampled vertices
+    sum_cc_u = 0.0
+    for u_id in sample_vertices:
+        sum_cc_u += local_bipartite_clustering_coefficient(graph, u_id, U_type_value)
+
+    return sum_cc_u / len(sample_vertices)
+
 
 def bipartite_cc_uu_prime(graph, u_id, u_prime_id):
     """
@@ -111,6 +158,148 @@ def average_local_bipartite_clustering_coefficient(graph, U_type_value=False):
 
     return sum_cc_u / len(U_vertices_ids)
 
+def average_local_bipartite_clustering_coefficient_sampled_all(graph, n=None, seed=None):
+    """
+    Calculates an approximate average local bipartite clustering coefficient
+    for a random sample of vertices from both partitions.
+
+    Args:
+        graph: An igraph Graph object. Must be bipartite with a 'type' vertex attribute.
+        n: The number of nodes to sample from the entire graph.
+           If None or greater than total nodes, all nodes are used.
+        seed: Optional random seed for reproducibility.
+
+    Returns:
+        The approximate average local clustering coefficient for the sampled nodes.
+    """
+    if not graph.is_bipartite():
+        raise ValueError("Graph must be bipartite.")
+    if "type" not in graph.vs.attributes():
+        raise ValueError("Bipartite graph must have a 'type' vertex attribute.")
+
+    total_nodes = len(graph.vs)
+    if total_nodes == 0:
+        return 0.0
+
+    # Set random seed for reproducibility
+    if seed is not None:
+        random.seed(seed)
+
+    # Select sample of vertices (all if n is None or larger than total)
+    if n is None or n >= total_nodes:
+        sampled_vertices = list(range(total_nodes))
+    else:
+        sampled_vertices = random.sample(range(total_nodes), n)
+
+    # Compute local clustering coefficient for each sampled vertex
+    sum_cc = 0.0
+    count_valid = 0
+    for v_id in sampled_vertices:
+        node_type = graph.vs[v_id]["type"]
+        try:
+            cc_v = local_bipartite_clustering_coefficient(graph, v_id, node_type)
+            sum_cc += cc_v
+            count_valid += 1
+        except ValueError:
+            # Skip nodes that don't have valid clustering (e.g., disconnected)
+            continue
+
+    if count_valid == 0:
+        return 0.0
+
+    return sum_cc / count_valid
+
+def average_local_bipartite_clustering_coefficient_sampled_stratified(graph, n=None, seed=None):
+    """
+    Calculates an approximate average local bipartite clustering coefficient
+    for a random stratified sample of vertices from both partitions.
+    The sampling preserves the proportion of 'type' values (top/bottom nodes).
+
+    Args:
+        graph: An igraph Graph object. Must be bipartite with a 'type' vertex attribute.
+        n: The total number of nodes to sample. If None or greater than total nodes,
+           all nodes are used.
+        seed: Optional random seed for reproducibility.
+
+    Returns:
+        The approximate average local clustering coefficient for the stratified sample.
+    """
+    if not graph.is_bipartite():
+        raise ValueError("Graph must be bipartite.")
+    if "type" not in graph.vs.attributes():
+        raise ValueError("Bipartite graph must have a 'type' vertex attribute.")
+
+    total_nodes = len(graph.vs)
+    if total_nodes == 0:
+        return 0.0
+
+    # Set random seed
+    if seed is not None:
+        random.seed(seed)
+
+    # Split nodes by type
+    top_nodes = [v.index for v in graph.vs if v["type"] in [True, 1]]
+    bottom_nodes = [v.index for v in graph.vs if v["type"] in [False, 0]]
+
+    n_top = len(top_nodes)
+    n_bottom = len(bottom_nodes)
+
+    if n_top + n_bottom != total_nodes:
+        raise ValueError("Some vertices have undefined or inconsistent 'type' values.")
+
+    # If n is None or larger than total, use all nodes
+    if n is None or n >= total_nodes:
+        sampled_vertices = top_nodes + bottom_nodes
+    else:
+        # Determine proportional sample sizes
+        prop_top = n_top / total_nodes
+        prop_bottom = n_bottom / total_nodes
+
+        n_top_sample = max(1, int(round(n * prop_top))) if n_top > 0 else 0
+        n_bottom_sample = max(1, int(round(n * prop_bottom))) if n_bottom > 0 else 0
+
+        # Adjust if rounding causes mismatch
+        total_sample = n_top_sample + n_bottom_sample
+        if total_sample != n:
+            diff = n - total_sample
+            if diff > 0:
+                # Add to larger group
+                if n_top > n_bottom:
+                    n_top_sample += diff
+                else:
+                    n_bottom_sample += diff
+            elif diff < 0:
+                # Remove extras from larger group
+                if n_top_sample > n_bottom_sample:
+                    n_top_sample += diff
+                else:
+                    n_bottom_sample += diff
+
+        # Sample nodes from each group
+        sample_top = random.sample(top_nodes, min(n_top_sample, len(top_nodes)))
+        sample_bottom = random.sample(bottom_nodes, min(n_bottom_sample, len(bottom_nodes)))
+
+        sampled_vertices = sample_top + sample_bottom
+
+    # Calculate clustering coefficient for sampled vertices
+    sum_cc = 0.0
+    count_valid = 0
+    for v_id in sampled_vertices:
+        node_type = graph.vs[v_id]["type"]
+        try:
+            cc_v = local_bipartite_clustering_coefficient(graph, v_id, node_type)
+            sum_cc += cc_v
+            count_valid += 1
+        except ValueError:
+            continue
+
+    if count_valid == 0:
+        return 0.0
+
+    return sum_cc / count_valid
+
+
+
 def compute_power_law_bipartite(gb, type_n):
     """Calcula el alpha del bipartita"""
     fit = powerlaw.Fit(gb.degree(gb.vs.select(type=type_n)), discrete=True, verbose=False)
@@ -163,6 +352,148 @@ def compute_avg_path_length(g, k):
     apl_approx = float(total_distances) / reachable_pairs
     return apl_approx
 
+
+def compute_avg_path_length_same_type(g, k, seed=None):
+    """
+    Approximates the average path length (APL) of nodes that belong to the same type
+    in a bipartite graph using igraph. The APL is computed only among nodes of
+    the same partition (same 'type' attribute).
+
+    Args:
+        g: An igraph Graph object. Must have a vertex attribute 'type' (True/False or 0/1).
+        k: Number of nodes to sample (total sample size, split proportionally by type).
+        seed: Optional random seed for reproducibility.
+
+    Returns:
+        A dictionary with approximate average path length for each type and the global mean:
+        {
+            "type_true": <float>,
+            "type_false": <float>,
+            "overall": <float>
+        }
+    """
+    if not isinstance(g, ig.Graph):
+        raise TypeError("Input graph must be an igraph.Graph object.")
+    if "type" not in g.vs.attributes():
+        raise ValueError("Graph must have a vertex attribute 'type'.")
+    if k <= 0:
+        raise ValueError("Sample size k must be positive.")
+    if g.vcount() == 0 or g.ecount() == 0:
+        return {"type_true": 0.0, "type_false": 0.0, "overall": 0.0}
+
+    # Set seed for reproducibility
+    if seed is not None:
+        random.seed(seed)
+
+    # Separate vertices by type
+    top_nodes = [v.index for v in g.vs if v["type"] in [True, 1]]
+    bottom_nodes = [v.index for v in g.vs if v["type"] in [False, 0]]
+
+    n_top, n_bottom = len(top_nodes), len(bottom_nodes)
+    total_nodes = n_top + n_bottom
+    if total_nodes == 0:
+        return {"type_true": 0.0, "type_false": 0.0, "overall": 0.0}
+
+    # Determine proportional sample sizes
+    n_top_sample = max(1, int(round(k * n_top / total_nodes))) if n_top > 0 else 0
+    n_bottom_sample = max(1, int(round(k * n_bottom / total_nodes))) if n_bottom > 0 else 0
+
+    # Sample nodes from each type
+    sample_top = random.sample(top_nodes, min(n_top_sample, n_top)) if n_top > 0 else []
+    sample_bottom = random.sample(bottom_nodes, min(n_bottom_sample, n_bottom)) if n_bottom > 0 else []
+
+    def _apl_within_sample(sample_nodes):
+        """Compute average path length among a sample of nodes of the same type."""
+        total_dist, count = 0.0, 0
+        for src in sample_nodes:
+            distances = g.shortest_paths(src)[0]
+            # Only consider distances to nodes of the same sample
+            finite_d = [distances[t] for t in sample_nodes if distances[t] not in [float("inf"), 0]]
+            total_dist += sum(finite_d)
+            count += len(finite_d)
+        return total_dist / count if count > 0 else 0.0
+
+    # Compute APL for each type
+    apl_top = _apl_within_sample(sample_top) if len(sample_top) > 1 else 0.0
+    apl_bottom = _apl_within_sample(sample_bottom) if len(sample_bottom) > 1 else 0.0
+
+    # Compute weighted overall APL
+    total_pairs = len(sample_top) + len(sample_bottom)
+    if total_pairs == 0:
+        overall = 0.0
+    else:
+        overall = (
+            (apl_top * len(sample_top)) + (apl_bottom * len(sample_bottom))
+        ) / total_pairs
+
+    return {
+        "type_true": apl_top,
+        "type_false": apl_bottom,
+        "overall": overall,
+    }
+
+
+def compute_avg_path_length_same_type_cugraph(G, k: int, seed=None):
+    """
+    Aproxima la longitud promedio de camino (APL) entre nodos del mismo tipo usando cuGraph.
+    Asume que G es un cuGraph.Graph o compatible, y que hay un atributo de tipo para cada vértice.
+    NOTA: es necesario acceder al atributo 'type' del vértice mediante un DataFrame o similar.
+    """
+
+    if seed is not None:
+        random.seed(seed)
+
+    # supongamos que G tiene un DataFrame de vértices con columna "type" y un identificador 'vertex'
+    v_df = G.nodes()  # o método equivalente que devuelva DataFrame con columnas: vertex, type
+    # convertir a listas para muestreo
+    top_nodes = v_df[v_df["type"].isin([True,1])]["vertex"].to_pandas().tolist()
+    bottom_nodes = v_df[v_df["type"].isin([False,0])]["vertex"].to_pandas().tolist()
+
+    n_top = len(top_nodes)
+    n_bottom = len(bottom_nodes)
+    total = n_top + n_bottom
+    if total == 0:
+        return {"type_true": 0.0, "type_false": 0.0, "overall": 0.0}
+
+    n_top_sample = max(1, int(round(k * n_top / total))) if n_top>0 else 0
+    n_bottom_sample = max(1, int(round(k * n_bottom / total))) if n_bottom>0 else 0
+
+    diff = k - (n_top_sample + n_bottom_sample)
+    if diff != 0:
+        if n_top > n_bottom:
+            n_top_sample += diff
+        else:
+            n_bottom_sample += diff
+
+    sample_top = random.sample(top_nodes, min(n_top_sample, n_top)) if n_top>0 else []
+    sample_bottom = random.sample(bottom_nodes, min(n_bottom_sample, n_bottom)) if n_bottom>0 else []
+
+    def _apl_within(sample_nodes):
+        total_dist = 0.0
+        count = 0
+        for src in sample_nodes:
+            # usar cuGraph para SSSP desde src
+            df = nxcg.shortest_path_length(G, source=src)  # devuelve DataFrame con columnas: vertex, distance
+            # filtrar sólo los target que están en sample_nodes
+            df2 = df[df["vertex"].isin(sample_nodes)]
+            # eliminar src = tgt y dist = inf
+            for _, row in df2.iterrows():
+                tgt = row["vertex"]
+                dist = row["distance"]
+                if tgt != src and not (dist is None or dist==float("inf")):
+                    total_dist += dist
+                    count += 1
+        return (total_dist / count) if count>0 else 0.0
+
+    apl_top = _apl_within(sample_top) if len(sample_top)>1 else 0.0
+    apl_bottom = _apl_within(sample_bottom) if len(sample_bottom)>1 else 0.0
+
+    overall = ((apl_top * len(sample_top)) + (apl_bottom * len(sample_bottom))) / (len(sample_top) + len(sample_bottom)) \
+              if (len(sample_top)+len(sample_bottom))>0 else 0.0
+
+    return {"type_true": apl_top, "type_false": apl_bottom, "overall": overall}
+
+
 def compute_weight_distribution(pesos):
     fit = powerlaw.Fit(pesos, discrete=True, verbose=False)
     return fit.alpha
@@ -206,7 +537,7 @@ def evaluate_solution(bip, proj, typen):
         #abs(((2*x["x5"]) / (x["x4"]*(x["x4"]-1))) - x["x15"]), 
         abs(x["x8"] - x["x7"]),  # CC
         abs(x["x11"] - x["x12"]), # Power Law
-        #abs(x["x9"] - x["x10"]), # APL
+        abs(x["x9"] - x["x10"]), # APL
         #abs(x["x13"]-x["x16"])  # Grado Promedio
         ])
     # restricciones g_i(x)<=0
