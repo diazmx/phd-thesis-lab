@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import sys
 from auxiliar_functions.data_preprocessing import add_new_index
 from auxiliar_functions.network_model import build_network_model, bipartite_projection, plot_distribution_degree
-from auxiliar_functions.community_detection import sub_community_detection, add_type_commts
+from auxiliar_functions.community_detection import sub_community_detection, add_type_commts, sub_community_detection_nx, add_type_commts_nx
 from auxiliar_functions.rule_inference import frequent_resources, get_attrs_from_user_sig, get_attrs_from_user, get_attrs_from_res, attribute_value_common, evaluate_weight
 from auxiliar_functions.evaluation import get_FN_logs, get_FP_logs, get_FP_logs_ref, get_FN_logs_ref
 from auxiliar_functions.refinement import generate_negative_rules
@@ -271,7 +271,7 @@ class PolicyMining:
         # plt.tight_layout()
         # plt.savefig('degree-distri-'+self.name_ds+'.png')
         
-        self.generate_random_network()
+        #self.generate_random_network()
         
 
         print("TASK 2: Done!\n")
@@ -348,6 +348,80 @@ class PolicyMining:
 
         self.all_commts = s_commts + m_commts + c_commts
         print("TASK 2: Done!\n")
+
+    def community_detection_nx(self, k_clique_value=3, big_threshold_ratio=0.5, med_threshold_ratio=0.25):
+        print("\n###############################")
+        print(" PHASE 3: Community Detection (NetworkX k-clique, Ejecución Única).")
+        print("###############################\n")
+
+        # --- Pre-Procesamiento: Conversión a NetworkX ---
+        
+        # 1. Crear una COPIA del grafo en formato NetworkX para la detección
+        if isinstance(self.user_network, nx.Graph):
+            # Si ya es NetworkX, simplemente lo copiamos para aislar los cambios
+            nx_graph_copy = self.user_network.copy()
+            print("Grafo: NetworkX (usando copia).")
+        elif hasattr(self.user_network, 'to_networkx'):
+            # Si tiene el método de conversión (ej. igraph), lo convertimos
+            nx_graph_copy = self.user_network.to_networkx()
+            print("Grafo: Convertido de igraph a NetworkX (usando copia).")
+        else:
+            raise TypeError("El objeto self.user_network no es NetworkX ni tiene el método to_networkx() para la conversión.")
+            
+        G = nx_graph_copy
+        
+        # ----------------------------------------------------
+        # ***** TASK 1 *****: Detección de Comunidades
+        # ----------------------------------------------------
+        
+        print(f"Usando k-clique con k = {k_clique_value}")
+        
+        # Ejecutar k_clique_communities
+        communities_generator = nx.algorithms.community.k_clique_communities(G, k=k_clique_value)
+        
+        dict_commts = {}
+        commty_counter = 0
+
+        # Mapear el generador a la estructura de diccionario y asignar 'commty'
+        for community_set in communities_generator:
+            id_commty_str = str(commty_counter)
+            dict_commts[id_commty_str] = [None, list(community_set)] 
+            commty_counter += 1
+            
+        # Asignar 'commty' (lista de IDs) al atributo de los nodos del grafo temporal G
+        for node in G.nodes():
+            member_of = [comm_id for comm_id, value in dict_commts.items() if node in value[1]]
+            G.nodes[node]["commty"] = member_of
+        
+        print("Modularidad: N/A (k-clique genera comunidades superpuestas).")
+        print(f"Comunidades k={k_clique_value} encontradas: {len(dict_commts)}")
+        print("TASK 1: Done!\n")
+
+        # ----------------------------------------------------
+        # ***** TASK 2 *****: Clasificación de Comunidades
+        # ----------------------------------------------------
+        
+        n_res_in_comms = [len(i[1]) for i in dict_commts.values()] 
+        max_n_res = max(n_res_in_comms) if n_res_in_comms else 0
+
+        big_threshold = int(big_threshold_ratio * max_n_res)
+        med_threshold = int(med_threshold_ratio * max_n_res)
+        print("Big Threshold:", big_threshold, "\t\tMed Threshold:", med_threshold)
+
+        # Clasificación (asigna 'tpcommty' al grafo temporal G)
+        s_commts, m_commts, c_commts = add_type_commts_nx(
+            G, dict_commts, big_threshold, med_threshold)
+        
+        # --- Post-Procesamiento: Transferencia de Atributos ---
+        
+        # Transferir los atributos 'commty' y 'tpcommty' del grafo temporal (G)
+        # de vuelta al grafo original (self.user_network)
+        transfer_attributes_to_original_graph(self.user_network, G)
+
+        self.all_commts = s_commts + m_commts + c_commts
+        print("TASK 2: Done!\n")
+        
+        return self.all_commts
 
     def community_detection_random(self, big_threshold_ratio=0.5, med_threshold_ratio=0.25):
         print("\n###############################")
