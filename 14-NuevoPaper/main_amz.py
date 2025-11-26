@@ -49,18 +49,17 @@ th_rule_sim = 1
 pm = PolicyMining(FILE_NAME, NAME_DATASET, USER_ATTRS, RESOURCE_ATTRS)
 pm.data_preprocessing(True, False)
 pm.network_model()
-pm.community_detection(th_big_com, th_med_com)
-pm.community_detection_random(th_big_com, th_med_com)
+pm.community_detection_nx(k_clique_value=4, big_threshold_ratio=0.6, med_threshold_ratio=0.3)
+#pm.community_detection_random(th_big_com, th_med_com)
 pm.rule_inference(th_rule_sim)
-pm.rule_inference_random(th_rule_sim)
+#pm.rule_inference_random(th_rule_sim)
 pm.evaluation()
-pm.evaluation_random()
+#pm.evaluation_random()
 #f.write("Normal\n")
 #f.write("th_big_com="+str(th_big_com) + "-th_med_com="+str(th_med_com)+"th_rule_sim="+str(th_rule_sim)+"\n")
 res1 = pm.policy_refinement(th_rule_sim)
-res = pm.policy_refinement_random(th_rule_sim)
+#res = pm.policy_refinement_random(th_rule_sim)
 print(res1)
-print(res)
 
 """
 
