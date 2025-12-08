@@ -92,7 +92,7 @@ pm.evaluation()
 res1 = pm.policy_refinement(th_rule_sim)
 #res = pm.policy_refinement_random(th_rule_sim)
 print(res1)
-print(res)
+
 
 th_big_com = 0.5
 th_med_com = 0.25
