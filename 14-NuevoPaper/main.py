@@ -1,4 +1,5 @@
-from policy_mining import PolicyMining, introducir_ruido, crear_version_sparse
+#from policy_mining import PolicyMining, introducir_ruido, crear_version_sparse
+from policy_mining import PolicyMining
 import sys
 
 NAME_DATASET = sys.argv[1]
@@ -8,6 +9,8 @@ RESOURCE_ATTRS = None
 th_rule_sim = None
 
 #f = open("output.txt", "w")
+import policy_mining
+print(policy_mining.PolicyMining.experiment_bridge_node_reassignment)
 
 
 # Settings for each dataset
@@ -46,9 +49,39 @@ th_big_com = 0.5
 th_med_com = 0.25
 th_rule_sim = 1
 pm = PolicyMining(FILE_NAME, NAME_DATASET, USER_ATTRS, RESOURCE_ATTRS)
+print(pm.experiment_bridge_node_reassignment.__code__.co_varnames)
+
 pm.data_preprocessing(True, False)
 pm.network_model()
-pm.community_detection_nx(k_clique_value=4, big_threshold_ratio=0.6, med_threshold_ratio=0.3)
+
+# 👈 SE NECESITA ANTES DEL EXPERIMENTO
+pm.community_detection(th_big_com, th_med_com)
+
+# 👈 También se necesita antes
+pm.rule_inference(th_rule_sim)
+
+# 👇 AHORA SÍ puedes ejecutar el experimento
+pm.experiment_bridge_node_reassignment(
+    ratio_bridge_nodes=0.20,
+    trials=50,
+    stability_threshold=0.9,
+    louvain_iterations=20,
+    sample_seed=123,
+    verbose=True
+)
+pm.evaluation()
+res1 = pm.policy_refinement(th_rule_sim)
+print(res1)
+
+"""
+
+th_big_com = 0.5
+th_med_com = 0.25
+th_rule_sim = 1
+pm = PolicyMining(FILE_NAME, NAME_DATASET, USER_ATTRS, RESOURCE_ATTRS)
+pm.data_preprocessing(True, False)
+pm.network_model()
+pm.community_detection_nx(k_clique_value=3, big_threshold_ratio=0.6, med_threshold_ratio=0.3)
 #pm.community_detection_random(th_big_com, th_med_com)
 pm.rule_inference(th_rule_sim)
 #pm.rule_inference_random(th_rule_sim)
@@ -60,8 +93,6 @@ res1 = pm.policy_refinement(th_rule_sim)
 #res = pm.policy_refinement_random(th_rule_sim)
 print(res1)
 print(res)
-
-"""
 
 th_big_com = 0.5
 th_med_com = 0.25
