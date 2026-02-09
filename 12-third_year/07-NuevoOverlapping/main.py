@@ -28,7 +28,7 @@ elif NAME_DATASET == "CAV":
                   "traffic_congestion"]
     RESOURCE_ATTRS = ["driving_task_loa", "vehicle_loa", "region_loa"]
     th_rule_sim = 1
-
+    
 elif NAME_DATASET == "IoT":
     FILE_NAME = "/Users/ddiaz/Documents/code/phd-thesis-lab/12-third_year/00-Data/11-IoT/01-DistributionsCSV/IoT-Rw.csv"
     USER_ATTRS = ["role", "age", "health"]
