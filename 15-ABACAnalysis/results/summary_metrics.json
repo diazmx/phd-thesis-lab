@@ -1,0 +1,19 @@
+{
+    "num_rules": 82,
+    "total_conditions": 380,
+    "wsc": 380,
+    "unique_rule_ratio": 1.0,
+    "avg_jaccard_similarity": 0.04845288581738446,
+    "heterogeneity_index": 0.2682926829268293,
+    "subsumed_rules": 20,
+    "rule_length_stats": {
+        "mean": 4.634146341463414,
+        "median": 3.0,
+        "std": 2.6847000791838074,
+        "min": 2,
+        "max": 9,
+        "p25": 2.0,
+        "p75": 8.0,
+        "p90": 8.0
+    }
+}

@@ -6,6 +6,7 @@ import copy
 from itertools import combinations
 from collections import Counter, defaultdict
 import sys
+import json
 from auxiliar_functions.data_preprocessing import add_new_index
 from auxiliar_functions.network_model import build_network_model, bipartite_projection, plot_distribution_degree
 from auxiliar_functions.community_detection import sub_community_detection, add_type_commts, sub_community_detection_nx, add_type_commts_nx
@@ -17,6 +18,24 @@ from sklearn.model_selection import StratifiedShuffleSplit
 import numpy as np
 import pandas as pd
 pd.options.mode.chained_assignment = None
+
+# Función para convertir tipos numpy a tipos nativos de Python
+def convertir_a_nativo(obj):
+    if isinstance(obj, np.integer):
+        return int(obj)
+    elif isinstance(obj, np.floating):
+        return float(obj)
+    elif isinstance(obj, np.ndarray):
+        return obj.tolist()
+    elif isinstance(obj, dict):
+        return {key: convertir_a_nativo(val) for key, val in obj.items()}
+    elif isinstance(obj, list):
+        return [convertir_a_nativo(elemento) for elemento in obj]
+    elif isinstance(obj, tuple):
+        return tuple(convertir_a_nativo(elemento) for elemento in obj)
+    else:
+        return obj
+
 
 def jaccard_index(set1, set2):
     intersection = len(set1 & set2)
@@ -512,6 +531,7 @@ class PolicyMining:
         print(" PHASE 4: Rule Inference.")
         print("##########################\n")
 
+
         ###### ***** TASK 1 ***** #####
         # Rule extraction
         self.list_rules = []  # Lista de reglas
@@ -579,6 +599,8 @@ class PolicyMining:
             self.list_rules.append(rule_i)
         print("|R|:", len(self.list_rules))
         print("TASK 1: Done!\n")
+
+        
 
         ###### ***** TASK 2 ***** #####
         # Rule Network
@@ -904,6 +926,8 @@ class PolicyMining:
         print(" PHASE 5: Policy Refinement.")
         print("#############################\n")
 
+        # Nombre del archivo de salida
+        archivo_salida = "reglas_abac.txt"
         df_fn = pd.DataFrame(self.fn_logs)
 
         ###### ***** TASK 1 ***** #####
@@ -1017,6 +1041,15 @@ class PolicyMining:
         print("|R|:", len(self.list_rules_ref))
         print("TASK 1: Done!\n")
 
+        politica_final = combinar_politicas_unicas(self.list_rules, self.list_rules_ref)
+        reglas_convertidas = convertir_a_nativo(politica_final)
+
+        with open(archivo_salida, 'w', encoding='utf-8') as f:
+            for regla in reglas_convertidas:
+                f.write(json.dumps(regla) + '\n')
+
+        print(f"Se han guardado {len(reglas_convertidas)} reglas en {archivo_salida}")
+
         ###### ***** TASK 2 ***** #####
         # Rule Network
         self.rules_with_idx = {}
@@ -1072,6 +1105,8 @@ class PolicyMining:
         # print(copy_g_proj2.vs()[0:10])
         print()
 
+
+
         ###### ***** EVALUATION ***** ##########################
         df_users = pd.DataFrame(
             self.df_data_pos[self.user_attrs+["uname"]].drop_duplicates())
@@ -1101,6 +1136,10 @@ class PolicyMining:
 
         neg_rules = generate_negative_rules(
             pd.DataFrame(self.fp_logs), rules_to_fix, len(self.list_rules))
+        
+        print("Reglas NEGATIVAS")
+        print(neg_rules)
+        print()
 
         self.fp_logs = get_FP_logs_ref(
             self.df_data_neg, self.user_network, self.total_rules,
@@ -1722,3 +1761,42 @@ def experiment_bridge_node_reassignment(self,
         print(f"   - Jaccard (excluding id) mean: {summary['jaccard_excluding_mean']}")
     return summary
 
+def normalizar_atributos(regla):
+    """
+    Extrae y normaliza la parte de atributos-valor de una regla para usarla como clave.
+    Ignora el primer elemento [id_com, valor] y solo considera la lista de atributos.
+    """
+    atributos = regla[1]
+    pares = []
+    for par in atributos:
+        nombre = par[0]
+        valor = par[1]
+        # Convertir tipos numpy a nativos
+        if isinstance(valor, np.integer):
+            valor = int(valor)
+        elif isinstance(valor, np.floating):
+            valor = float(valor)
+        elif isinstance(valor, np.bool_):
+            valor = bool(valor)
+        elif isinstance(valor, np.ndarray):
+            valor = valor.tolist()
+        pares.append((nombre, valor))
+    pares.sort()  # Para que el orden no afecte la comparación
+    return tuple(pares)
+
+def combinar_politicas_unicas(politica1, politica2):
+    """
+    Combina dos políticas (primero concatena, luego elimina duplicados por atributos).
+    Conserva la primera aparición de cada conjunto único de atributos.
+    """
+    # Concatenar ambas políticas
+    combinada = politica1 + politica2
+    
+    # Eliminar duplicados basados en atributos
+    unicas = {}
+    for regla in combinada:
+        clave = normalizar_atributos(regla)
+        if clave not in unicas:
+            unicas[clave] = regla
+    
+    return list(unicas.values())
