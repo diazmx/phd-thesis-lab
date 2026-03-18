@@ -1,19 +1,19 @@
 {
-    "num_rules": 82,
-    "total_conditions": 380,
-    "wsc": 380,
+    "num_rules": 90,
+    "total_conditions": 345,
+    "wsc": 345,
     "unique_rule_ratio": 1.0,
-    "avg_jaccard_similarity": 0.04845288581738446,
-    "heterogeneity_index": 0.2682926829268293,
-    "subsumed_rules": 20,
+    "avg_jaccard_similarity": 0.03914627680545283,
+    "heterogeneity_index": 0.6444444444444445,
+    "subsumed_rules": 11,
     "rule_length_stats": {
-        "mean": 4.634146341463414,
+        "mean": 3.8333333333333335,
         "median": 3.0,
-        "std": 2.6847000791838074,
+        "std": 1.740051084818425,
         "min": 2,
-        "max": 9,
+        "max": 8,
         "p25": 2.0,
-        "p75": 8.0,
-        "p90": 8.0
+        "p75": 5.0,
+        "p90": 6.1000000000000085
     }
 }

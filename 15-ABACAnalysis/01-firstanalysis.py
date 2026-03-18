@@ -182,7 +182,7 @@ def attribute_cooccurrence(rules):
 def plot_rule_length(lengths, output_dir):
 
     plt.figure()
-    sns.histplot(lengths, bins=15, kde=True)
+    sns.histplot(lengths, bins=15)
     plt.xlabel("Rule Length")
     plt.ylabel("Frequency")
     plt.title("Distribution of Rule Lengths")

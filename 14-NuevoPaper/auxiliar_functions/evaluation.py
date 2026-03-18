@@ -94,6 +94,47 @@ def get_FN_logs(data_, user_network, list_rules, rule_network, rules_dict):
 
     return false_neg
 
+def get_FN_logs_dos(data_, user_network, list_rules, rule_network, rules_dict, rule_usage_counter, rule_index):
+    """TRAIN DATA."""
+    false_neg = []
+    for i, row in data_.iterrows():
+        user_id = row["uname"]
+
+        user_node = user_network.vs.find(name=user_id)
+        user_commty = user_node["commty"]
+
+        list_coms_user = obtener_reglas_comundiad(user_commty, list_rules)
+        list_rules_idx = get_rule_id(list_coms_user, rules_dict)
+        list_coms_user = get_neighbors_rules(
+            list_rules_idx, rule_network, rules_dict)
+
+        denies_count = 0
+        for rule in list_coms_user:
+
+            res = True
+
+            for attr_val in rule[1]:
+                if row[attr_val[0]] != attr_val[1]:
+                    res = False
+                    break
+
+            if res:
+
+                rule_key = tuple(map(tuple, rule[1]))
+
+                if rule_key in rule_index:
+                    rule_id = rule_index[rule_key]
+                    rule_usage_counter[rule_id] += 1
+                break
+
+            else:
+                denies_count += 1
+
+        if denies_count == len(list_coms_user):
+            false_neg.append(row)
+
+    return false_neg, rule_usage_counter
+
 
 def calculate_sum_tot(comm, graph_):
     sum_tot = 0
