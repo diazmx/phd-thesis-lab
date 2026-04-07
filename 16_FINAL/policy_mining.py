@@ -11,7 +11,7 @@ from auxiliar_functions.data_preprocessing import add_new_index
 from auxiliar_functions.network_model import build_network_model, bipartite_projection, plot_distribution_degree
 from auxiliar_functions.community_detection import sub_community_detection, add_type_commts, sub_community_detection_nx, add_type_commts_nx
 from auxiliar_functions.rule_inference import frequent_resources, get_attrs_from_user_sig, get_attrs_from_user, get_attrs_from_res, attribute_value_common, evaluate_weight
-from auxiliar_functions.evaluation import get_FN_logs, get_FP_logs, get_FP_logs_ref, get_FN_logs_ref, get_FN_logs_dos
+from auxiliar_functions.evaluation import get_FN_logs, get_FP_logs, get_FP_logs_ref, get_FN_logs_refi, get_FN_logs_dos, eliminar_reglas_duplicadas
 from auxiliar_functions.refinement import generate_negative_rules
 from sklearn.model_selection import StratifiedShuffleSplit
 
@@ -213,7 +213,7 @@ class PolicyMining:
             self.df_data_pos = self.df_data_pos[self.df_data_pos.columns[1:]].drop_duplicates()
             #self.df_data_pos = self.df_data_pos.drop_duplicates()
             #self.df_data_neg = self.df_data_neg.drop_duplicates()
-            self.df_data_neg = self.df_data_neg[self.df_data_pos.columns[1:]].drop_duplicates()
+            self.df_data_neg = self.df_data_neg.drop_duplicates()
             print("# (+) access requests:", len(self.df_data_pos),
                   " %: {:.2f}".format((len(self.df_data_pos)/len(self.df_data))*100))
             print("# (-) access requests:", len(self.df_data_neg),
@@ -280,7 +280,7 @@ class PolicyMining:
 
             self.df_data_pos = self.df_data_pos[self.df_data_pos.columns[1:]].drop_duplicates(
             )
-            self.df_data_neg = self.df_data_neg[self.df_data_neg.columns[1:]].drop_duplicates(
+            self.df_data_neg = self.df_data_neg.drop_duplicates(
             )
             print("# (+) access requests:", len(self.df_data_pos),
                   " %: {:.2f}".format((len(self.df_data_pos)/len(self.df_data))*100))
@@ -295,7 +295,7 @@ class PolicyMining:
         
         
 
-        print(self.df_data)
+        print(self.df_data_pos)
         self.n_users = len(self.df_data.uname.drop_duplicates())
         self.n_rsrcs = len(self.df_data.RID.drop_duplicates())
         print("|U|: ", self.n_users, " -\t|R|: ",
@@ -605,8 +605,12 @@ class PolicyMining:
             rule_user_attrs = attribute_value_common(df_users_commty)
             rule_i[1] = rule_i[1] + rule_user_attrs
             self.list_rules.append(rule_i)
-        print("|R|:", len(self.list_rules))
-        print(self.list_rules)
+        print("Antes: |R|:", len(self.list_rules))
+        #print(self.list_rules)
+
+        self.list_rules = eliminar_reglas_duplicadas(self.list_rules)
+        print("Despues: |R|:", len(self.list_rules))
+        
         print("TASK 1: Done!\n")
 
         
@@ -930,7 +934,6 @@ class PolicyMining:
 
         self.rule_usage_counter = {i: 0 for i in range(len(self.list_rules))}
 
-
         ###### ***** TASK 1 ***** #####
         # Get False Negative Set
         self.fn_logs = get_FN_logs(
@@ -938,6 +941,7 @@ class PolicyMining:
             self.rule_network, self.rules_with_idx)
 
         # Get False Positive Set
+        print(self.df_data_neg.columns)
         self.fp_logs = get_FP_logs(
             self.df_data_neg, self.user_network, self.list_rules,
             self.rule_network, self.rules_with_idx)
@@ -1144,9 +1148,9 @@ class PolicyMining:
 
         self.plot_coverage_distribution(df_cov)
 
-        print("\nRule coverage:")
-        for r in self.rules_coverage:
-            print("Rule", r["rule_id"], "covers", r["coverage"], "records")
+        #print("\nRule coverage:")
+        #for r in self.rules_coverage:
+        #    print("Rule", r["rule_id"], "covers", r["coverage"], "records")
         
         for idx, rule in enumerate(self.total_rules):
             self.rules_with_idx[idx] = rule

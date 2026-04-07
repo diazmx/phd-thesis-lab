@@ -1,4 +1,6 @@
 
+import networkx as nx
+
 def obtener_reglas_comundiad(id_com, reglas):
     """Retorna las reglas con el identificador de comunidad"""
     list_to_ret = []
@@ -18,6 +20,18 @@ def get_rule_id(set_rules, dict_wiith_idx):
         list_idx_ret.append(key_list[position])
     return list_idx_ret
 
+def eliminar_reglas_duplicadas(lista_reglas):
+    reglas_unicas = []
+    vistos = set()
+
+    for regla in lista_reglas:
+        firma = tuple(tuple(item) for item in regla[1])
+
+        if firma not in vistos:
+            reglas_unicas.append(regla)
+            vistos.add(firma)
+    
+    return reglas_unicas
 
 def get_neighbors_rules(list_rule_idx, rule_graph, dict_wiith_idx):
     """Retorna el idx de las reglas vecinas."""
@@ -34,6 +48,33 @@ def get_neighbors_rules(list_rule_idx, rule_graph, dict_wiith_idx):
         list_to_ret.append(dict_wiith_idx[idx])
     return list_to_ret
 
+def get_neighbors_rules_dos(list_rule_idx, rule_graph, dict_wiith_idx, depth_level=1):
+    """
+    Retorna el contenido de las reglas vecinas hasta un nivel de profundidad dado.
+    """
+    # Iniciamos con los nodos originales
+    nodos_visitados = set(list_rule_idx)
+    nodos_capa_actual = set(list_rule_idx)
+
+    # Iteramos según la profundidad deseada
+    for _ in range(depth_level):
+        proxima_capa = set()
+        for nodo in nodos_capa_actual:
+            # Buscamos los vecinos de cada nodo en la capa actual
+            for vecino in rule_graph.neighbors(nodo):
+                if vecino not in nodos_visitados:
+                    proxima_capa.add(vecino)
+        
+        # Si no hay más vecinos que descubrir, terminamos antes
+        if not proxima_capa:
+            break
+            
+        # Agregamos los nuevos vecinos al total y preparamos la siguiente vuelta
+        nodos_visitados.update(proxima_capa)
+        nodos_capa_actual = proxima_capa
+
+    # Mapeamos los índices finales a los valores del diccionario
+    return [dict_wiith_idx[idx] for idx in nodos_visitados]
 
 def add_new_user_node_2(user, resource, graph_, data):
     """Add new vertex in the graph based on share resource."""
@@ -64,6 +105,40 @@ def get_comunidades_vecinas(nodo, graph_):
     return lista_to_ret
 
 
+def get_FN_logs_antes(data_, user_network, list_rules, rule_network, rules_dict):
+    """TRAIN DATA."""
+    false_neg = []
+    for i, row in data_.iterrows():
+        user_id = row["uname"]
+
+        user_node = user_network.vs.find(name=user_id)
+        user_commty = user_node["commty"]
+
+        list_coms_user = obtener_reglas_comundiad(user_commty, list_rules)
+        list_rules_idx = get_rule_id(list_coms_user, rules_dict)
+        #list_coms_user = get_neighbors_rules(
+        #    list_rules_idx, rule_network, rules_dict)
+        list_coms_user = get_neighbors_rules_dos(
+            list_rules_idx, rule_network, rules_dict, depth_level=5)
+        
+        
+
+        # Evaluación
+        denies_count = 0
+        for rule in list_coms_user:
+            res = True
+            for idx_r, attr_val in enumerate(rule[1]):            
+                if row[attr_val[0]] != attr_val[1]:
+                    res = False
+                    break
+            if res == False:
+                denies_count += 1
+
+        if denies_count == len(list_coms_user):
+            false_neg.append(row)
+
+    return false_neg
+
 def get_FN_logs(data_, user_network, list_rules, rule_network, rules_dict):
     """TRAIN DATA."""
     false_neg = []
@@ -77,6 +152,7 @@ def get_FN_logs(data_, user_network, list_rules, rule_network, rules_dict):
         list_rules_idx = get_rule_id(list_coms_user, rules_dict)
         list_coms_user = get_neighbors_rules(
             list_rules_idx, rule_network, rules_dict)
+        
 
         # Evaluación
         denies_count = 0
@@ -88,6 +164,39 @@ def get_FN_logs(data_, user_network, list_rules, rule_network, rules_dict):
                     break
             if res == False:
                 denies_count += 1
+
+        if denies_count == len(list_coms_user):
+            false_neg.append(row)
+
+    return false_neg
+
+def get_FN_logs_refi(data_, user_network, list_rules, rule_network, rules_dict):
+    """TRAIN DATA."""
+    false_neg = []
+    for i, row in data_.iterrows():
+        user_id = row["uname"]
+
+        user_node = user_network.vs.find(name=user_id)
+        user_commty = user_node["commty"]
+
+        list_coms_user = obtener_reglas_comundiad(user_commty, list_rules)
+        list_rules_idx = get_rule_id(list_coms_user, rules_dict)
+        list_coms_user = get_neighbors_rules(
+            list_rules_idx, rule_network, rules_dict)
+        
+
+        # Evaluación
+        denies_count = 0
+        for rule in list_coms_user:
+            res = True
+            for idx_r, attr_val in enumerate(rule[1]):            
+                if row[attr_val[0]] != attr_val[1]:
+                    res = False
+                    break
+            if res == False:
+                denies_count += 1
+
+
 
         if denies_count == len(list_coms_user):
             false_neg.append(row)
@@ -129,6 +238,18 @@ def get_FN_logs_dos(data_, user_network, list_rules, rule_network, rules_dict, r
 
             else:
                 denies_count += 1
+
+        # Add at april 2. Trying to improve the FNs
+        if denies_count == len(list_coms_user):
+            denies_count = 0
+            for rule in list_rules:
+                res = True                
+                for attr_val in rule[1]:            
+                    if row[attr_val[0]] != attr_val[1]:
+                        res = False
+                        break
+                if res == False:
+                    denies_count += 1 
 
         if denies_count == len(list_coms_user):
             false_neg.append(row)
