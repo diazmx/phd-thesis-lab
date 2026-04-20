@@ -14,7 +14,7 @@ import seaborn as sns
 sns.set(style="whitegrid")
 plt.rcParams["figure.dpi"] = 300
 
-DATASET_NAME = "AMZ"
+DATASET_NAME = "KAR"
 
 
 # ==========================================================
