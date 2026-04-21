@@ -14,7 +14,7 @@ import seaborn as sns
 sns.set(style="whitegrid")
 plt.rcParams["figure.dpi"] = 300
 
-DATASET_NAME = "KAR"
+DATASET_NAME = "K_HC"
 
 
 # ==========================================================
@@ -567,8 +567,8 @@ def main(rules_path, dataset_path):
     rules = load_rules(rules_path)
     dataset = load_dataset(dataset_path)
 
-    graph_access_dict = load_graph_access("rule_usage.csv")
-    graph_access = build_access_array(rules, graph_access_dict)
+    #graph_access_dict = load_graph_access("rule_usage.csv")
+    #graph_access = build_access_array(rules, graph_access_dict)
 
     # Metrics
     sizes = rule_size_stats(rules)
@@ -580,18 +580,18 @@ def main(rules_path, dataset_path):
     access = access_per_rule(rules, dataset)
     attr_val_df = pd.read_csv("attribute_value_comparison.csv")
     generate_rule_importance_csv(rules, access, attr_val_df)
-    generate_rule_importance_graph_csv(rules,
-        "rule_usage.csv",
-        attr_val_df,
-        output_file="rule_importance_graph.csv")
+    #generate_rule_importance_graph_csv(rules,
+    #    "rule_usage.csv",
+    #    attr_val_df,
+    #    output_file="rule_importance_graph.csv")
     subsumed = subsumption(rules)
     export_subsumed_rules(rules, subsumed, access, 0)
     plot_subsumed_vs_access(subsumed, access, 0)
     plot_size_vs_access_subsumed(rules, subsumed, access, 0)
 
-    export_subsumed_rules(rules, subsumed, graph_access, 1)
-    plot_subsumed_vs_access(subsumed, graph_access, 1)
-    plot_size_vs_access_subsumed(rules, subsumed, graph_access, 1)
+    #export_subsumed_rules(rules, subsumed, graph_access, 1)
+    #plot_subsumed_vs_access(subsumed, graph_access, 1)
+    #plot_size_vs_access_subsumed(rules, subsumed, graph_access, 1)
     
 
     # Print summary
