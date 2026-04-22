@@ -14,7 +14,7 @@ import seaborn as sns
 sns.set(style="whitegrid")
 plt.rcParams["figure.dpi"] = 300
 
-DATASET_NAME = "K_HC"
+DATASET_NAME = "K_IoT"
 
 
 # ==========================================================
@@ -627,7 +627,7 @@ def main(rules_path, dataset_path):
     plot_attribute_frequency(attr_freq_rel)
     plot_jaccard(jaccard)
     plot_access(access)
-    plot_access_dos(graph_access)
+    #plot_access_dos(graph_access)
     plot_subsumption(subsumed)
 
     print("\nPlots and CSV files generated.")
