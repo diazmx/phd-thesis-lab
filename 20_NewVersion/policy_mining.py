@@ -670,6 +670,8 @@ class PolicyMining:
         # print(isolated_nodes, len(isolated_nodes))
         self.rule_network_ref.add_nodes_from(isolated_nodes)
 
+        nx.write_graphml(self.rule_network_ref, "rule_nets.graphml")
+
         print("Rule Network\n", nx.info(self.rule_network_ref))
         print("TASK 2: Done!\n")
 
